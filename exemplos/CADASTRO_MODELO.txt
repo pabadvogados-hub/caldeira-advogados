@@ -1,0 +1,27 @@
+# CADASTRO DO CLIENTE - o Closer preenche ao fechar o contrato
+# Uma informacao por linha, no formato CAMPO: valor. Linhas com # sao ignoradas.
+# Nome, CPF e RG vem da CNH/RG (mande o documento junto). Aqui vai o que o documento nao tem.
+
+Telefone:
+Email:
+Estado civil:
+Profissao:
+Endereco:
+Origem:
+Indicante:
+Data do contrato:
+
+# Opcional: se vazio, a IA monta a partir dos bancos citados na reuniao
+Bancos:
+
+# Honorarios (texto que vai no contrato)
+Honorarios entrada:
+Honorarios pagamento:
+Honorarios exito:
+
+# Honorarios (numeros para o Asaas; deixe em branco para nao gerar cobranca)
+Honorarios entrada valor:
+Honorarios entrada vencimento:
+Honorarios parcelas qtd:
+Honorarios parcela valor:
+Honorarios parcelas primeiro vencimento:

@@ -1,0 +1,8 @@
+anthropic>=0.121.0
+python-dotenv
+python-docx
+PyMuPDF
+Pillow
+requests
+docx2pdf        # usa o Word instalado para gerar PDF (alternativa: LibreOffice)
+pytesseract     # opcional: OCR de documento escaneado (precisa do Tesseract instalado)

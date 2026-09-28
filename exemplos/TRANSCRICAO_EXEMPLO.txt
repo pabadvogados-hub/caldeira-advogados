@@ -1,0 +1,25 @@
+CASO FICTICIO PARA DEMONSTRACAO - nomes, numeros e valores inventados.
+
+Reuniao de fechamento - 22/09/2026 - Closer: Marcos (Caldeira Advogados)
+
+Marcos: Bom dia, seu João, tudo bem? Aqui é o Marcos, do Caldeira Advogados. A Júlia me passou que o senhor tá com problema de financiamento, me conta como está a situação.
+João: Bom dia. Olha, é o seguinte, eu planto soja e milho safrinha lá em Espigão d'Oeste. Tenho duzentos hectares meu e arrendo mais uns duzentos e oitenta. Essa safra agora, a de 25 pra 26, a seca pegou feio. Perdi uns quarenta por cento da soja, e o milho safrinha quase não deu nada.
+Marcos: E o senhor tem financiamento em quais bancos?
+João: No Banco do Brasil eu tenho o custeio da soja, foi um milhão e duzentos, vence agora dia 15 de outubro. E tenho no Sicredi a colheitadeira, que foi um financiamento de investimento, a parcela de julho, a de trinta de julho, eu não consegui pagar, deu uns trezentos e dez mil. E tem uma CPR com a cerealista Grãos do Norte, mas essa eu acho que dá pra pagar entregando o milho.
+Marcos: A do Sicredi, eles já fizeram alguma cobrança?
+João: Ligaram semana passada, o gerente falou que se não regularizar vão pegar a colheitadeira. Falou em busca e apreensão. Isso me assustou.
+Marcos: Entendi. E tem alguém de avalista nessas operações?
+João: Minha esposa, a Maria, assina comigo em todas. E no Banco do Brasil a fazenda tá hipotecada.
+Marcos: O senhor chegou a pedir prorrogação no banco, por escrito?
+João: Pedi de boca pro gerente do BB, ele disse que ia ver, mas não voltou. Por escrito não.
+Marcos: Sobre a seca, o senhor tem alguma coisa que comprove? Laudo, foto, decreto?
+João: Tenho foto da lavoura. A prefeitura decretou emergência por causa da estiagem, saiu no começo do ano. Laudo de agrônomo eu não tenho ainda.
+Marcos: Certo. O que a gente faz: primeiro notificamos os bancos pedindo a prorrogação, com base na perda da safra, e pedimos cópia de todos os contratos. Se o banco não resolver, entramos com a ação pedindo liminar pra suspender a cobrança e impedir que o senhor e a dona Maria sejam negativados. Vai precisar de laudo do agrônomo e do laudo financeiro.
+João: E quanto fica?
+Marcos: Fica cinco mil de entrada e mais dez por cento do que a gente conseguir de benefício no final. Os cinco mil pode ser no Pix ou boleto.
+João: Pode ser no boleto, pra dia 30.
+Marcos: Fechado. Os documentos que eu vou precisar: CNH ou RG, comprovante de endereço, todas as cédulas de todos os bancos, extratos, comprovante das parcelas que o senhor já pagou, matrícula da fazenda e as notas fiscais de venda da produção.
+João: As cédulas do Banco do Brasil eu tenho aqui em casa. A do Sicredi eu não achei, vou ter que pedir. As notas o meu contador tem. A matrícula tá no cartório, eu tiro.
+Marcos: Perfeito. O senhor mora onde?
+João: Moro no sítio, Linha 14, lote 32, zona rural de Espigão d'Oeste. O CEP é 76974-000. Meu telefone é esse mesmo, 69 99999-0000. E-mail eu tenho, é joao.ferreira.exemplo@email.com.
+Marcos: Ótimo, seu João. Hoje ainda o senhor recebe o contrato e a procuração pra assinar pelo celular.

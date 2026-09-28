@@ -1,0 +1,21 @@
+# Credenciais - NUNCA versionar
+config/.env
+config/*.json
+config/token*
+config/credentials*
+
+# Dados de cliente - ficam no servidor do escritorio, nunca no repositorio
+CLIENTES/
+*.pdf
+!docs/*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Temporarios
+*.tmp
+~$*
+logs/

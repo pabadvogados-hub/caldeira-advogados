@@ -1,0 +1,22 @@
+# CADASTRO DO CLIENTE - preenchido pelo Closer ao fechar (CASO FICTICIO)
+# Uma informacao por linha, no formato CAMPO: valor. Linhas com # sao ignoradas.
+
+Telefone: (69) 99999-0000
+Email: joao.ferreira.exemplo@email.com
+Estado civil: casado
+Profissao: produtor rural
+Origem: indicacao
+Indicante: Sindicato Rural
+Data do contrato: 22/09/2026
+
+# Honorarios (texto que vai no contrato)
+Honorarios entrada: R$ 5.000,00 (cinco mil reais) de entrada
+Honorarios pagamento: boleto com vencimento em 30/09/2026
+Honorarios exito: 10% (dez por cento) do proveito economico obtido
+
+# Honorarios (numeros para o Asaas; deixe em branco para nao gerar cobranca)
+Honorarios entrada valor: 5000,00
+Honorarios entrada vencimento: 30/09/2026
+Honorarios parcelas qtd:
+Honorarios parcela valor:
+Honorarios parcelas primeiro vencimento:
