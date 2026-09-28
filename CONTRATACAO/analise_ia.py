@@ -15,7 +15,10 @@ import os
 import re
 import sys
 
-import anthropic
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
+import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
+
+import ia  # noqa: E402  (NUCLEO)
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
@@ -129,31 +132,7 @@ def _dna():
 
 
 def _chamar(modelo, sistema, conteudo, schema, max_tokens):
-    api_key = os.getenv('ANTHROPIC_API_KEY')
-    if not api_key:
-        raise SystemExit('ERRO: ANTHROPIC_API_KEY nao configurada em config/.env')
-    cliente = anthropic.Anthropic(api_key=api_key)
-    extras = {}
-    if modelo.startswith('claude-opus-5') or modelo.startswith('claude-fable'):
-        # se o filtro de seguranca recusar, a propria API refaz no modelo de reserva
-        extras = {'extra_headers': {'anthropic-beta': 'server-side-fallback-2026-07-01'},
-                  'extra_body': {'fallbacks': 'default'}}
-    with cliente.messages.stream(
-        model=modelo,
-        max_tokens=max_tokens,
-        # o texto fixo (instrucoes + DNA das pecas) fica em cache entre um cliente e outro
-        system=[{'type': 'text', 'text': sistema, 'cache_control': {'type': 'ephemeral'}}],
-        messages=[{'role': 'user', 'content': conteudo}],
-        output_config={'format': {'type': 'json_schema', 'schema': schema}},
-        **extras,
-    ) as stream:
-        resposta = stream.get_final_message()
-    if resposta.stop_reason == 'refusal':
-        raise RuntimeError('A IA recusou a analise (stop_reason=refusal). Rodar de novo ou revisar a entrada.')
-    if resposta.stop_reason == 'max_tokens':
-        raise RuntimeError('A resposta da IA foi cortada (max_tokens). Aumentar o limite e rodar de novo.')
-    texto = next(b.text for b in resposta.content if b.type == 'text')
-    return json.loads(texto)
+    return ia.json_por_schema(modelo, sistema, conteudo, schema, max_tokens)
 
 
 def triagem(transcricao, texto_documentos='', cadastro=None):

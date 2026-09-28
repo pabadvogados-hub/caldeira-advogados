@@ -11,6 +11,9 @@ Agendar `python CONTRATACAO/main.py acompanhar --enviar` 3x ao dia (ver deploy/)
 """
 import os
 import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
+import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
 from datetime import date, datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

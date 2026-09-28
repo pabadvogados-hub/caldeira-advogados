@@ -14,6 +14,9 @@ import os
 import re
 import shutil
 import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
+import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
 import unicodedata
 from datetime import datetime
 

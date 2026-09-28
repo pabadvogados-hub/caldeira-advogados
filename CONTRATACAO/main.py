@@ -25,18 +25,15 @@ import argparse
 import os
 import shutil
 import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
+import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
 from datetime import date, datetime
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
 sys.path.insert(0, RAIZ)
-
-try:
-    from dotenv import load_dotenv
-    load_dotenv(os.path.join(RAIZ, 'config', '.env'))
-except ImportError:
-    pass
 
 import acompanhamento  # noqa: E402
 import analise_ia  # noqa: E402

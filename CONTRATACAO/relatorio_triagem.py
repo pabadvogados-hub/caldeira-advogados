@@ -4,6 +4,9 @@ E o documento guia da fase de contratacao: os demais documentos saem dos dados d
 """
 import os
 import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
+import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
 from datetime import datetime
 
 from docx.shared import Pt
