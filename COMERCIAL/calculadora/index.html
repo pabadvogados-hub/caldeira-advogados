@@ -111,6 +111,34 @@ footer{background:var(--grafite);color:#D8D0C6;font-size:13px;border-top:4px sol
 footer .caixa{max-width:1120px;margin:0 auto;padding:18px 16px}
 footer b{color:#fff;font-family:var(--serif);font-weight:700}
 @media (prefers-reduced-motion:no-preference){.kpi b{transition:color .2s}}
+/* celular */
+@media (max-width:600px){
+  .topo .caixa{padding:14px 16px 16px}
+  .logo{height:56px}
+  h1{font-size:26px}
+  .topo p{font-size:15px}
+  main{padding:16px 12px 32px}
+  .kpi b{font-size:22px}
+  /* tabela vira um cartao por parcela, sem rolar de lado */
+  .tabela{overflow:visible;border:0;background:transparent}
+  .tabela table{min-width:0;font-size:14px}
+  .tabela thead{display:none}
+  .tabela table,.tabela tbody,.tabela tr,.tabela td{display:block;width:100%}
+  .tabela tr{border:1px solid var(--linha);border-radius:10px;margin:0 0 10px;padding:6px 0;background:#fff}
+  .tabela tr.carencia{background:#FCF7F2}
+  .tabela td{display:flex;justify-content:space-between;gap:12px;border:0;padding:4px 12px;white-space:normal}
+  .tabela td::before{content:attr(data-rotulo);color:var(--suave);text-align:left;font-weight:400}
+  .tabela td:first-child{display:block;text-align:left;font-weight:700;color:var(--grafite);padding-bottom:6px}
+  .tabela td:first-child::before{content:none}
+  .tabela td:empty{display:none}
+  .tabela tr.pula{border-style:dashed}
+  .tabela tr.pula td::before{content:none}
+  .tabela tr.pula td{justify-content:center}
+}
+.so-celular{display:none}
+@media (max-width:600px){.so-celular{display:inline}}
+.whats-fixo.escondido{opacity:0;pointer-events:none;transform:translateY(12px)}
+@media (prefers-reduced-motion:no-preference){.whats-fixo{transition:opacity .2s,transform .2s}}
 @media print{body{padding-bottom:0}body::before,.whats-fixo,footer,.whats,.botao{display:none}.grade{grid-template-columns:1fr}}
 </style>
 </head>
@@ -388,9 +416,13 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
 
     var corpo = $('corpoTabela'), html = [], L = r.linhas;
     function linha(l){
-      return '<tr' + (l.carencia ? ' class="carencia"' : '') + '><td>' + l.rot + '</td><td>' + l.mes + '</td><td>' +
-        BRL.format(l.juros) + '</td><td>' + BRL.format(l.amort) + '</td><td>' + BRL.format(l.pag) +
-        '</td><td>' + BRL.format(l.saldo) + '</td></tr>';
+      var rot = l.carencia ? 'Carência' : '<span class="so-celular">Parcela </span>' + l.rot;
+      return '<tr' + (l.carencia ? ' class="carencia"' : '') + '><td data-rotulo="">' + rot + '</td>' +
+        '<td data-rotulo="Mês">' + l.mes + '</td>' +
+        '<td data-rotulo="Juros">' + BRL.format(l.juros) + '</td>' +
+        '<td data-rotulo="Amortização">' + BRL.format(l.amort) + '</td>' +
+        '<td data-rotulo="Pagamento">' + BRL.format(l.pag) + '</td>' +
+        '<td data-rotulo="Saldo devedor">' + BRL.format(l.saldo) + '</td></tr>';
     }
     if(L.length <= 30){ L.forEach(function(l){ html.push(linha(l)); }); }
     else {
@@ -400,8 +432,10 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
     }
     var somaJ = L.reduce(function(s,l){ return s + l.juros; }, 0);
     var somaA = L.reduce(function(s,l){ return s + l.amort; }, 0);
-    html.push('<tr><td><b>Total</b></td><td></td><td><b>' + BRL.format(somaJ) + '</b></td><td><b>' +
-      BRL.format(somaA) + '</b></td><td><b>' + BRL.format(r.totalPago) + '</b></td><td></td></tr>');
+    html.push('<tr><td data-rotulo=""><b>Total</b></td><td data-rotulo=""></td>' +
+      '<td data-rotulo="Juros"><b>' + BRL.format(somaJ) + '</b></td>' +
+      '<td data-rotulo="Amortização"><b>' + BRL.format(somaA) + '</b></td>' +
+      '<td data-rotulo="Pagamento"><b>' + BRL.format(r.totalPago) + '</b></td><td data-rotulo=""></td></tr>');
     corpo.innerHTML = html.join('');
 
     $('semResultado').hidden = true;
@@ -432,8 +466,17 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
     $('erro').textContent = erro;
     if(erro) return;
     mostrar(p, simular(p));
+    if (window.matchMedia('(max-width:860px)').matches) {
+      var suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      $('t-res').scrollIntoView({behavior: suave ? 'smooth' : 'auto', block: 'start'});
+    }
   });
   atualizarWhats();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(itens){
+      $('btnWhatsFixo').classList.toggle('escondido', itens[0].isIntersecting);
+    }).observe($('btnWhats'));
+  }
 })();
 </script>
 </body>
