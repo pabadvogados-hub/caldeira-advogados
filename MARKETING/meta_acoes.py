@@ -397,11 +397,12 @@ def descrever(a):
 
 def terminal_interativo():
     """True so com uma pessoa num console de verdade. No Windows, isatty() da True para o dispositivo NUL
-    (agendador, '< nul'), por isso confere tambem o GetConsoleMode."""
+    (agendador, '< nul'), por isso confere tambem o GetConsoleMode. No Mac e no Linux o isatty() basta:
+    launchd e cron entregam /dev/null, que nao e terminal (ctypes.windll/msvcrt so existem no Windows)."""
     try:
         if not (sys.stdin and sys.stdin.isatty()):
             return False
-        if os.name == 'nt':
+        if sys.platform == 'win32':
             import ctypes
             import msvcrt
             modo = ctypes.c_uint32()

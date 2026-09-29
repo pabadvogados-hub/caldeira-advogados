@@ -13,7 +13,7 @@ Regras:
   6 horas) e um aviso de "voltou ao normal" quando resolver
 - se o proprio Atende Direito cair, o aviso fica em logs/healthcheck_alertas.log
 - nunca mostra o valor de nenhuma credencial; as consultas sao so leitura e nao custam tokens
-Roda em Windows (Agendador, 1x ao dia) e na VPS (systemd, de hora em hora).
+Roda em Windows (Agendador, 1x ao dia), no Mac (launchd, 1x ao dia) e na VPS (systemd, de hora em hora).
 """
 import argparse
 import json
@@ -170,9 +170,14 @@ def falha_de_rotina(nome):
     estado[chave] = datetime.now().isoformat(timespec='seconds')
     _salvar_estado(estado)
     log = nome.replace('caldeira-', '').replace('.service', '').replace('-', '_')
+    if sys.platform == 'darwin':
+        onde = '(Mac: "launchctl list | grep br.com.caldeira" mostra as rotinas agendadas).'
+    elif sys.platform == 'win32':
+        onde = '(Windows: Agendador de Tarefas > Caldeira).'
+    else:
+        onde = f'(VPS: /opt/caldeira/app/logs/) e "systemctl status {nome}".'
     avisar(f'{_cabecalho()}\nA rotina automatica "{nome}" falhou.\n'
-           f'Ver o log: logs/{log}.log na pasta do sistema (VPS: /opt/caldeira/app/logs/) '
-           f'e "systemctl status {nome}".')
+           f'Ver o log: logs/{log}.log na pasta do sistema {onde}')
 
 
 def main():

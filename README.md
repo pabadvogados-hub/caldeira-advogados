@@ -1,7 +1,7 @@
 # Caldeira Advogados Associados - Automações
 
-Ecossistema de IA do escritório, instalado na máquina e no servidor do próprio escritório (e opcionalmente numa
-VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro contato do produtor à finalização do processo.
+Ecossistema de IA do escritório, instalado nas máquinas (**Windows e Mac**) e no servidor do próprio escritório (e
+opcionalmente numa VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro contato do produtor à finalização do processo.
 
 | Módulo | O que faz |
 |---|---|
@@ -14,11 +14,16 @@ VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro contato do produtor à 
 | `GESTAO/` | Pauta de segunda, auditoria de sexta, gargalos da equipe |
 | `FINANCEIRO/` | Régua de cobrança de honorários, inadimplência, fechamento mensal |
 
-```
-deploy\instalar_windows.bat          instala e testa
-python CONTRATACAO/main.py exemplo   caso fictício de ponta a ponta
-deploy\agendar_tarefas_windows.bat   liga as rotinas automáticas
-```
+| | Windows | Mac |
+|---|---|---|
+| Instalar e testar | `deploy\instalar_windows.bat` | `bash deploy/mac/instalar_mac.sh` (ou duplo clique em `deploy/mac/Instalar no Mac.command`) |
+| Conferir sem mudar nada | `deploy\instalar_windows.bat /checar` | `bash deploy/mac/instalar_mac.sh --checar` |
+| Ligar as rotinas automáticas | `deploy\agendar_tarefas_windows.bat` | `bash deploy/mac/agendar_tarefas_mac.sh` (ou `Agendar rotinas no Mac.command`) |
+| Pasta do servidor no `config/.env` | `Z:\CLIENTES` ou `\\SERVIDOR\CLIENTES` | `/Volumes/CLIENTES` (conectar em `smb://SERVIDOR/CLIENTES`) |
+
+Caso fictício de ponta a ponta: `python CONTRATACAO/main.py exemplo`. Cada máquina tem o seu `config/.env`.
+**As rotinas automáticas ficam ligadas em UMA máquina só** (um Windows, um Mac ou a VPS); nas demais, só os
+comandos sob demanda - senão o cliente recebe mensagem em dobro.
 
 - Guia da equipe: `docs/COMECE_AQUI.md`
 - Mapa fase → comando → cargo → rotina → credencial: `docs/MAPA_DO_SISTEMA.md`

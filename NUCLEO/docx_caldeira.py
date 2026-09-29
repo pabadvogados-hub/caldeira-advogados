@@ -6,7 +6,7 @@ Documentos .docx no timbrado do Caldeira Advogados Associados.
 - novo_documento(): abre o timbrado para escrever um documento novo.
 - preencher_modelo(): troca os {{CAMPOS}} de um modelo .docx (inclusive quando o Word
   quebrou o campo em varios pedacos de texto).
-- docx_para_pdf(): converte para PDF (Word via docx2pdf ou LibreOffice).
+- docx_para_pdf(): converte para PDF (Word via docx2pdf ou LibreOffice; Windows, Mac e Linux).
 """
 import copy
 import os
@@ -280,28 +280,58 @@ def preencher_modelo(modelo, dados, saida):
 # PDF
 # ============================================================
 
+def _tem_word():
+    """Microsoft Word instalado (o docx2pdf so funciona com ele: Windows e Mac)."""
+    if sys.platform == 'win32':
+        return True   # sem Word o docx2pdf so falha e cai no LibreOffice
+    if sys.platform == 'darwin':
+        return any(os.path.isdir(os.path.join(p, 'Microsoft Word.app'))
+                   for p in ('/Applications', os.path.expanduser('~/Applications')))
+    return False      # Linux/VPS: so LibreOffice
+
+
+def caminho_soffice():
+    """LibreOffice (soffice) no Windows, no Mac ou no Linux. SOFFICE_PATH no .env tem prioridade."""
+    achado = os.getenv('SOFFICE_PATH') or shutil.which('soffice') or shutil.which('libreoffice')
+    if achado:
+        return achado
+    candidatos = [
+        os.path.join(os.getenv('ProgramFiles', r'C:\Program Files'), 'LibreOffice', 'program', 'soffice.exe'),
+        os.path.join(os.getenv('ProgramFiles(x86)', r'C:\Program Files (x86)'), 'LibreOffice', 'program', 'soffice.exe'),
+        '/Applications/LibreOffice.app/Contents/MacOS/soffice',
+        os.path.expanduser('~/Applications/LibreOffice.app/Contents/MacOS/soffice'),
+        '/opt/homebrew/bin/soffice', '/usr/local/bin/soffice',   # Homebrew (Mac Apple Silicon / Intel)
+        '/usr/bin/soffice', '/usr/bin/libreoffice',
+    ]
+    return next((c for c in candidatos if os.path.exists(c)), None)
+
+
 def docx_para_pdf(caminho_docx):
-    """Converte para PDF ao lado do .docx. Retorna o caminho do PDF ou None."""
+    """Converte para PDF ao lado do .docx. Retorna o caminho do PDF ou None.
+    Ordem: Word (docx2pdf; Windows e Mac com Word) e, se nao der, LibreOffice.
+    PDF_CONVERSOR=libreoffice no .env pula o Word (ex.: Mac sem Word ou rotina sem ninguem na maquina,
+    onde o Word do Mac pode ficar esperando a permissao de automacao)."""
     pdf = os.path.splitext(caminho_docx)[0] + '.pdf'
-    try:
-        from docx2pdf import convert  # usa o Microsoft Word instalado
-        convert(caminho_docx, pdf)
-        if os.path.exists(pdf):
-            return pdf
-    except Exception:
-        pass
-    soffice = os.getenv('SOFFICE_PATH') or shutil.which('soffice') or shutil.which('libreoffice')
-    if not soffice:
-        for c in (r'C:\Program Files\LibreOffice\program\soffice.exe',
-                  r'C:\Program Files (x86)\LibreOffice\program\soffice.exe',
-                  '/Applications/LibreOffice.app/Contents/MacOS/soffice'):
-            if os.path.exists(c):
-                soffice = c
-                break
+    if os.getenv('PDF_CONVERSOR', '').strip().lower() != 'libreoffice' and _tem_word():
+        try:
+            from docx2pdf import convert  # usa o Microsoft Word instalado
+            convert(caminho_docx, pdf)
+            if os.path.exists(pdf):
+                return pdf
+        except Exception:  # noqa: BLE001 - sem Word ou Word com erro: tenta o LibreOffice
+            pass
+    soffice = caminho_soffice()
     if soffice:
-        subprocess.run([soffice, '--headless', '--convert-to', 'pdf', '--outdir',
-                        os.path.dirname(caminho_docx), caminho_docx],
-                       capture_output=True, timeout=180)
+        import tempfile
+        from pathlib import Path
+        # perfil proprio: com o LibreOffice aberto na tela, o modo --headless nao converte nada
+        perfil = Path(tempfile.gettempdir(), 'caldeira_libreoffice').as_uri()
+        try:
+            subprocess.run([soffice, f'-env:UserInstallation={perfil}', '--headless', '--convert-to', 'pdf',
+                            '--outdir', os.path.dirname(os.path.abspath(caminho_docx)), caminho_docx],
+                           capture_output=True, timeout=180)
+        except (OSError, subprocess.SubprocessError):
+            return None
         if os.path.exists(pdf):
             return pdf
     return None

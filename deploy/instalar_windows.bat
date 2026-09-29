@@ -20,7 +20,7 @@ set "SEMPAUSA="
 if /I "%~1"=="/checar" set "MODO=checar"
 if /I "%~1"=="/sem-pausa" set "SEMPAUSA=1"
 if /I "%~2"=="/sem-pausa" set "SEMPAUSA=1"
-set "MODULOS=CONTRATACAO EXTRAJUDICIAL JUDICIAL CONTROLADORIA GESTAO COMERCIAL FINANCEIRO"
+set "MODULOS=CONTRATACAO EXTRAJUDICIAL JUDICIAL CONTROLADORIA GESTAO COMERCIAL MARKETING FINANCEIRO"
 
 echo ===============================================================
 echo   Caldeira Advogados Associados - instalacao [%MODO%]

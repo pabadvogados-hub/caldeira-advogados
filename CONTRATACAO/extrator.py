@@ -6,20 +6,73 @@ Tesseract estiver instalado.
 """
 import os
 import re
+import shutil
+import sys
+
+
+def caminho_tesseract():
+    """Tesseract no Windows, no Mac (Homebrew) ou no Linux. TESSERACT_CMD no .env tem prioridade.
+    Precisa tambem do idioma portugues: Windows (marcar no instalador), Mac `brew install tesseract-lang`,
+    Linux `apt install tesseract-ocr-por`."""
+    achado = os.getenv('TESSERACT_CMD') or shutil.which('tesseract')
+    if achado:
+        return achado
+    # o agendador (launchd no Mac, Agendador no Windows) nem sempre tem o PATH do terminal
+    candidatos = [
+        os.path.join(os.getenv('ProgramFiles', r'C:\Program Files'), 'Tesseract-OCR', 'tesseract.exe'),
+        os.path.join(os.getenv('LOCALAPPDATA', ''), 'Programs', 'Tesseract-OCR', 'tesseract.exe'),
+        '/opt/homebrew/bin/tesseract',   # Mac Apple Silicon (M1/M2/M3...)
+        '/usr/local/bin/tesseract',      # Mac Intel
+        '/usr/bin/tesseract',
+    ]
+    return next((c for c in candidatos if os.path.exists(c)), None)
+
+
+_avisou_sem_tesseract = False
+
+
+def _abrir_heic(caminho):
+    """Foto do iPhone (.heic). Usa o pillow-heif se instalado; no Mac, converte com o 'sips' do sistema."""
+    from PIL import Image
+    try:
+        from pillow_heif import register_heif_opener
+        register_heif_opener()
+        return Image.open(caminho)
+    except ImportError:
+        pass
+    if sys.platform == 'darwin' and shutil.which('sips'):
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            jpg = os.path.join(tmp, 'foto.jpg')
+            subprocess.run(['sips', '-s', 'format', 'jpeg', caminho, '--out', jpg], capture_output=True, timeout=60)
+            if os.path.exists(jpg):
+                img = Image.open(jpg)
+                img.load()
+                return img
+    raise RuntimeError('foto .heic: no Windows, instale "pip install pillow-heif" ou salve a foto como JPG')
 
 
 def _ocr_imagem(caminho_ou_pixmap):
+    global _avisou_sem_tesseract
     try:
         import pytesseract
         from PIL import Image
     except ImportError:
         return ''
-    tess = os.getenv('TESSERACT_CMD')
-    if tess:
-        pytesseract.pytesseract.tesseract_cmd = tess
+    tess = caminho_tesseract()
+    if not tess:
+        if not _avisou_sem_tesseract:
+            print('   Aviso: sem Tesseract, imagem/PDF escaneado nao foi lido (OCR). Ver docs/COMECE_AQUI.md.')
+            _avisou_sem_tesseract = True
+        return ''
+    pytesseract.pytesseract.tesseract_cmd = tess
     try:
         if isinstance(caminho_ou_pixmap, str):
-            img = Image.open(caminho_ou_pixmap)
+            if caminho_ou_pixmap.lower().endswith(('.heic', '.heif')):
+                img = _abrir_heic(caminho_ou_pixmap)
+            else:
+                img = Image.open(caminho_ou_pixmap)
         else:
             import io
             img = Image.open(io.BytesIO(caminho_ou_pixmap.tobytes('png')))
@@ -78,7 +131,7 @@ def ler_arquivo(caminho):
                 for linha in t.rows:
                     texto.append(' | '.join(c.text for c in linha.cells))
             return '\n'.join(texto)
-        if ext in ('.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tif', '.tiff'):
+        if ext in ('.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tif', '.tiff', '.heic', '.heif'):
             return _ocr_imagem(caminho)
     except Exception as e:
         print(f'   Aviso: nao consegui ler {os.path.basename(caminho)} ({e})')

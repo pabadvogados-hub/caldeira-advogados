@@ -14,11 +14,13 @@ As rotinas rodam em **um lugar só**. Se rodarem no Windows e na VPS ao mesmo te
 mensagem em dobro (cada máquina tem o seu histórico de envios).
 
 - **Tudo na VPS:** ligar as rotinas na VPS (passo 6) e rodar na máquina do escritório
-  `deploy\agendar_tarefas_windows.bat /remover`.
+  `deploy\agendar_tarefas_windows.bat /remover` (se a máquina das rotinas for um Mac:
+  `bash deploy/mac/agendar_tarefas_mac.sh --remover`).
 - **Misto:** as rotinas que usam a pasta dos clientes no servidor interno continuam no Windows e as que
   só falam com APIs vão para a VPS. Veja a tabela do passo 5 e ligue na VPS só os timers escolhidos
   (`systemctl enable --now caldeira-NOME.timer`); no Windows, desabilite as mesmas tarefas no Agendador
-  (pasta Caldeira > tarefa > Desabilitar).
+  (pasta Caldeira > tarefa > Desabilitar); no Mac, `launchctl bootout gui/$(id -u)/br.com.caldeira.NOME` e apague
+  o `~/Library/LaunchAgents/br.com.caldeira.NOME.plist` (senão volta no próximo login).
 
 ## 1. Contratar a VPS
 

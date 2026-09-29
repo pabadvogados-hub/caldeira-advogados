@@ -36,17 +36,31 @@ Guia da equipe: `docs/COMECE_AQUI.md`. O que falta configurar: `docs/ONBOARDING.
 
 ## Estrutura
 ```
-NUCLEO/          ambiente (.env, caminhos), ia (Claude: JSON por schema e texto longo), docx_caldeira (timbrado)
+NUCLEO/          ambiente (.env, caminhos), ia (Claude: JSON por schema e texto longo), docx_caldeira (timbrado),
+                 caminhos (caminho relativo no caso.json: Windows x Mac)
 INTEGRACOES/     advbox, asaas, zapsign, atendedireito, gmail (so rascunho), comunica_djen, meta_ads (so leitura)
 CONTRATACAO/ EXTRAJUDICIAL/ JUDICIAL/ CONTROLADORIA/ GESTAO/ COMERCIAL/ MARKETING/ FINANCEIRO/
 BASE_CONHECIMENTO/  DNA_PECAS.md (teses, foro, estilo, o que os bancos alegam) + ESQUELETOS/ por tipo de peca
 DOCS_MODELOS/    contrato, procuracao, declaracao (hoje PROVISORIOS - travam o envio)
 config/          escritorio.py, equipe.py, regras_financeiras.py, bancos_emails.json, timbrado, .env (nao versionar)
-deploy/          Windows (instalar + agendar todas as rotinas) e VPS (systemd/Docker + healthcheck)
+deploy/          Windows (instalar + agendar todas as rotinas), mac/ (instalar + launchd) e VPS (systemd/Docker + healthcheck)
 SAIDA/           relatorios gerados (nao versionado: tem dado de cliente)
 ```
 Pasta de cada cliente: `PASTA_CLIENTES_RAIZ/AGRONEGOCIO/NOME/` com `00 CONTRATACAO/caso.json` = estado do caso,
 lido e gravado por todas as fases (`etapa`, `prazos`, `extrajudicial`, `judicial`).
+
+## Windows e Mac
+- O escritorio usa Windows e Mac misturados; o codigo e o mesmo. Instalar: `deploy\instalar_windows.bat` ou
+  `bash deploy/mac/instalar_mac.sh` (`--checar` so confere). Cada maquina tem o seu `config/.env`.
+- `PASTA_CLIENTES_RAIZ`: Windows `Z:\CLIENTES` / `\\SERVIDOR\CLIENTES`; Mac `/Volumes/CLIENTES` (smb://SERVIDOR/CLIENTES).
+- `caso.json` grava caminho RELATIVO a pasta do cliente com `/` (`NUCLEO/caminhos.py`, dentro de
+  `pasta_cliente.ler_caso/salvar_caso`); caso antigo com `Z:\...` e remontado na leitura. Nao gravar caminho absoluto
+  de arquivo da pasta do cliente por fora dessas funcoes.
+- Codigo novo: `os.path.join` (nunca `\\` fixo), `open(..., encoding='utf-8')`, nada de `os.startfile`/`msvcrt`/`cmd`
+  sem condicionar por `sys.platform`; programa externo (LibreOffice, Tesseract) procurado nos caminhos dos dois sistemas.
+- **Rotinas automaticas em UMA maquina so** (Windows `deploy\agendar_tarefas_windows.bat`, Mac
+  `bash deploy/mac/agendar_tarefas_mac.sh`, ou VPS). Duas = mensagem em dobro ao cliente. Mudou a agenda num,
+  muda nos tres (`agendar_tarefas_windows.bat`, tabela do `agendar_tarefas_mac.sh`, `deploy/vps/`).
 
 ## Onde mexer
 | O que | Arquivo |

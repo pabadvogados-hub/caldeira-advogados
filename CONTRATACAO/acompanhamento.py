@@ -123,10 +123,12 @@ def painel():
     print(f"\n{'CLIENTE':32} {'ETAPA':24} {'DIAS':>4} {'FALTA':>5} {'NOTIFICACAO':>11} {'INICIAL':>10}  ALERTA")
     for base, caso in casos:
         falta = faltando(base, caso)
-        inicio = date.fromisoformat(caso['data_contrato'])
-        prazos = {p['id']: p['data'] for p in caso['prazos']}
+        inicio = date.fromisoformat(caso.get('data_contrato') or date.today().isoformat())
+        prazos = {p['id']: p['data'] for p in caso.get('prazos') or []}
         alerta = []
         for marco in ('notificacao', 'inicial'):
+            if not prazos.get(marco):
+                continue
             limite = datetime.strptime(prazos[marco], '%d/%m/%Y').date()
             if (limite - hoje).days < 0:
                 alerta.append(f'{marco} VENCIDA')
@@ -135,4 +137,4 @@ def painel():
         if caso.get('alerta_gestor_em'):
             alerta.append('regua esgotada')
         print(f"{caso['qualificacao']['nome'][:32]:32} {caso.get('etapa', '')[:24]:24} {(hoje - inicio).days:>4} "
-              f"{len(falta):>5} {prazos['notificacao']:>11} {prazos['inicial']:>10}  {'; '.join(alerta)}")
+              f"{len(falta):>5} {prazos.get('notificacao', '-'):>11} {prazos.get('inicial', '-'):>10}  {'; '.join(alerta)}")

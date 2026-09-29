@@ -108,8 +108,11 @@ def _telefone(item, exemplo):
                 return p['customers'][0].get('cellphone', '')
         return ''
     if item.get('pasta'):
-        from pasta_cliente import ler_caso
-        tel = (ler_caso(item['pasta']).get('qualificacao') or {}).get('telefone')
+        import caminhos
+        from pasta_cliente import ler_caso, raiz_clientes
+        # a varredura pode ter sido gravada em outra maquina (Z:\... x /Volumes/...)
+        tel = (ler_caso(caminhos.pasta_do_cliente(item['pasta'], raiz_clientes())).get('qualificacao')
+               or {}).get('telefone')
         if tel:
             return tel
     if item.get('advbox_processo_id') and comum.tem_advbox():

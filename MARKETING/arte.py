@@ -7,7 +7,8 @@ Artes dos posts em PNG (Pillow), no padrao visual do Caldeira Advogados Associad
 - Texto quebrado automaticamente: a fonte diminui ate caber; se nem no tamanho minimo couber,
   o texto e cortado com "..." e o aviso volta para o relatorio (encurtar o texto).
 - **palavra** no texto = destaque em laranja. Linha comecando com "- " = item de lista.
-- Fontes do sistema com reserva (Windows C:\\Windows\\Fonts, Linux /usr/share/fonts). Para usar as
+- Fontes do sistema com reserva (Windows C:\\Windows\\Fonts; Mac /System/Library/Fonts, /Library/Fonts e
+  ~/Library/Fonts; Linux /usr/share/fonts): Georgia/Times New Roman no titulo, Arial/Helvetica no corpo. Para usar as
   fontes da marca, coloque os .ttf em config/fontes/ (titulo.ttf, corpo.ttf, corpo_negrito.ttf).
 - NADA de imagem gerada por IA: so texto, formas e o logo do escritorio.
 - Material bloqueado pela conformidade sai com faixa vermelha "NAO PUBLICAR ATE CORRIGIR".
@@ -62,18 +63,26 @@ except Exception:  # noqa: BLE001 - arte funciona mesmo sem o config
 # ============================================================
 
 _CANDIDATAS = {
-    # titulo em serifa (conversa com o logo e com o timbrado das pecas)
+    # titulo em serifa (conversa com o logo e com o timbrado das pecas).
+    # Nomes do Windows (georgiab.ttf), do Mac ("Georgia Bold.ttf", em /System/Library/Fonts/Supplemental)
+    # e do Linux (DejaVu/Liberation/Noto). A busca ignora maiusculas/minusculas.
     'titulo': ['titulo.ttf', 'georgiab.ttf', 'Georgia Bold.ttf', 'DejaVuSerif-Bold.ttf', 'LiberationSerif-Bold.ttf',
-               'NotoSerif-Bold.ttf', 'timesbd.ttf', 'arialbd.ttf', 'DejaVuSans-Bold.ttf'],
+               'NotoSerif-Bold.ttf', 'timesbd.ttf', 'Times New Roman Bold.ttf', 'arialbd.ttf', 'Arial Bold.ttf',
+               'DejaVuSans-Bold.ttf'],
     'corpo': ['corpo.ttf', 'segoeui.ttf', 'arial.ttf', 'DejaVuSans.ttf', 'LiberationSans-Regular.ttf',
-              'NotoSans-Regular.ttf', 'calibri.ttf'],
-    'corpo_negrito': ['corpo_negrito.ttf', 'segoeuib.ttf', 'arialbd.ttf', 'DejaVuSans-Bold.ttf',
+              'NotoSans-Regular.ttf', 'calibri.ttf', 'Helvetica.ttc', 'HelveticaNeue.ttc'],
+    'corpo_negrito': ['corpo_negrito.ttf', 'segoeuib.ttf', 'arialbd.ttf', 'Arial Bold.ttf', 'DejaVuSans-Bold.ttf',
                       'LiberationSans-Bold.ttf', 'NotoSans-Bold.ttf', 'calibrib.ttf'],
 }
 _PASTAS_FONTES = [
     PASTA_FONTES_MARCA,
-    r'C:\Windows\Fonts',
+    # Windows
+    os.path.join(os.environ.get('WINDIR', r'C:\Windows'), 'Fonts'),
     os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Microsoft', 'Windows', 'Fonts'),
+    # Mac (Georgia, Times New Roman e Arial ficam em Supplemental; Helvetica em /System/Library/Fonts)
+    '/System/Library/Fonts', '/System/Library/Fonts/Supplemental', '/Library/Fonts',
+    os.path.expanduser('~/Library/Fonts'),
+    # Linux / VPS
     '/usr/share/fonts', '/usr/local/share/fonts',
     os.path.expanduser('~/.fonts'), os.path.expanduser('~/.local/share/fonts'),
 ]
@@ -90,7 +99,7 @@ def _indexar_fontes():
                 continue
             for raiz, _dirs, arquivos in os.walk(pasta):
                 for a in arquivos:
-                    if a.lower().endswith(('.ttf', '.otf')):
+                    if a.lower().endswith(('.ttf', '.otf', '.ttc')):   # .ttc: Helvetica do Mac
                         _indice_fontes.setdefault(a.lower(), os.path.join(raiz, a))
     return _indice_fontes
 

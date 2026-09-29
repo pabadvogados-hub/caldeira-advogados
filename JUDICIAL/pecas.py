@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
 import ambiente  # noqa: E402  (carrega .env e caminhos)
+import caminhos  # noqa: E402  (caminho relativo a pasta do cliente: Windows e Mac)
 from datetime import date, datetime  # noqa: E402
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -293,7 +294,15 @@ def renderizar(caminho_md, saida_docx=None):
     with open(caminho_md, encoding='utf-8') as f:
         texto = f.read()
     meta = dict(re.findall(r'(\w+)=([^\s]+)', texto.split('\n', 1)[0])) if texto.startswith('%%') else {}
-    saida = saida_docx or meta.get('docx', '').replace('|', ' ') or os.path.splitext(caminho_md)[0] + '.docx'
+    saida = saida_docx or meta.get('docx', '').replace('|', ' ')
+    if saida and not saida_docx:
+        # o .md pode ter sido gerado em outra maquina (Z:\... no Windows, /Volumes/... no Mac)
+        base = caminhos.base_do_arquivo(caminho_md)
+        if base:
+            saida = caminhos.resolver(base, saida)
+        elif not caminhos.eh_absoluto(saida):
+            saida = ''   # .md fora da pasta do cliente: o .docx sai ao lado dele
+    saida = saida or os.path.splitext(caminho_md)[0] + '.docx'
     pend = formatar.montar_docx(texto, saida, meta.get('perfil', 'inicial'))
     pdf = docx_para_pdf(saida)
     return saida, pdf, pend
@@ -412,7 +421,7 @@ def gerar(tipo, pasta, banco=None, documento=None, instrucao=None, revisional=Fa
     referencias = [texto_doc, textos_pasta, json.dumps(caso, ensure_ascii=False), instrucao or '']
     corpo, avisos = conferencia.conferir(corpo, ambiente.ler_base('DNA_PECAS.md'), *referencias)
     final = (f"%% tipo={tipo} perfil={cfg['perfil']} banco={(banco or '-').replace(' ', '_')} "
-             f"docx={saida.replace(' ', '|')}\n" + cabecalho + '\n' + corpo + '\n' + fecho(tipo, frase_valor) + '\n')
+             f"docx={caminhos.relativo(base, saida).replace(' ', '|')}\n" + cabecalho + '\n' + corpo + '\n' + fecho(tipo, frase_valor) + '\n')
     caminho_md = base_md + '.md'
     with open(caminho_md, 'w', encoding='utf-8') as f:
         f.write(final)

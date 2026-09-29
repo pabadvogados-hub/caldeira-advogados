@@ -7,7 +7,11 @@ RAIZ/AGRONEGOCIO/NOME DO CLIENTE/
     10 EXTRAJUDICIAL/          notificacoes e respostas dos bancos
     20 JUDICIAL/               inicial, decisoes
 
-A raiz vem de PASTA_CLIENTES_RAIZ no config/.env (ex.: \\\\SERVIDOR\\CLIENTES ou Z:\\CLIENTES).
+A raiz vem de PASTA_CLIENTES_RAIZ no config/.env de CADA maquina:
+    Windows: Z:\\CLIENTES  ou  \\\\SERVIDOR\\CLIENTES
+    Mac:     /Volumes/CLIENTES  (depois de conectar em smb://SERVIDOR/CLIENTES pelo Finder)
+O caso.json grava os caminhos relativos a pasta do cliente (NUCLEO/caminhos.py), entao o mesmo caso
+abre nos dois sistemas.
 """
 import json
 import os
@@ -17,6 +21,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'NUCLEO'))
 import ambiente  # noqa: E402,F401  (carrega .env e caminhos)
+import caminhos  # noqa: E402  (caminho relativo no caso.json: Windows e Mac)
 import unicodedata
 from datetime import datetime
 
@@ -110,17 +115,22 @@ def caminho_caso(base):
 
 
 def ler_caso(base):
+    """Le o caso.json e resolve os caminhos de arquivo para esta maquina (Windows ou Mac).
+    Aceita caso antigo com caminho absoluto de outra maquina (NUCLEO/caminhos.py)."""
     try:
         with open(caminho_caso(base), encoding='utf-8') as f:
-            return json.load(f)
+            caso = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
+    return caminhos.caso_lido(os.path.abspath(base), caso) if isinstance(caso, dict) else {}
 
 
 def salvar_caso(base, caso):
+    """Grava o caso.json com os caminhos RELATIVOS a pasta do cliente (com "/"), para abrir igual no
+    Windows (Z:\\CLIENTES) e no Mac (/Volumes/CLIENTES). O dict em memoria continua com o absoluto."""
     caso['atualizado_em'] = datetime.now().isoformat(timespec='seconds')
     with open(caminho_caso(base), 'w', encoding='utf-8') as f:
-        json.dump(caso, f, ensure_ascii=False, indent=2)
+        json.dump(caminhos.caso_para_gravar(os.path.abspath(base), caso), f, ensure_ascii=False, indent=2)
 
 
 def listar_casos():

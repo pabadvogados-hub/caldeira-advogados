@@ -3,9 +3,10 @@
 Enquanto um item não chega, a etapa correspondente fica em modo seguro (gera arquivos, nada sai do escritório).
 Variáveis completas: `config/.env.example`. Tabela de qual comando usa qual chave: `docs/MAPA_DO_SISTEMA.md`.
 
-## 1. Credenciais (canal seguro, direto no config/.env da máquina do escritório)
+## 1. Credenciais (canal seguro, direto no config/.env de CADA máquina - Windows e Mac)
 - [ ] `ANTHROPIC_API_KEY` - conta Anthropic do escritório (obrigatória)
-- [ ] `PASTA_CLIENTES_RAIZ` - caminho da pasta de clientes no servidor interno
+- [ ] `PASTA_CLIENTES_RAIZ` - pasta de clientes no servidor interno, do jeito de cada máquina:
+      Windows `Z:\CLIENTES` ou `\\SERVIDOR\CLIENTES`; Mac `/Volumes/CLIENTES` (conectar antes em `smb://SERVIDOR/CLIENTES`)
 - [ ] `ZAPSIGN_API_TOKEN` - ZapSign > Configurações > API
 - [ ] `ATENDE_DIREITO_TOKEN` (e, se houver, `ATENDE_DIREITO_FLOW_TOKEN` para medir tempo de resposta)
 - [ ] `ADVBOX_API_TOKEN` - conferir se o plano libera API
@@ -39,10 +40,27 @@ Variáveis completas: `config/.env.example`. Tabela de qual comando usa qual cha
 - [ ] Uma análise de proposta de banco com IA (`EXTRAJUDICIAL/main.py proposta`)
 - [ ] Algumas conversas da auditoria de atendimento contra o painel do Atende Direito
 
-## 4. Instalação
+## 4. Instalação (o escritório tem Windows e Mac)
+- [ ] Definir **qual máquina roda as rotinas automáticas** (uma só: um Windows, um Mac ou a VPS) e quais
+      só usam os comandos sob demanda
+- [ ] Instalar em cada máquina que vai usar o sistema e criar o `config/.env` dela
+- [ ] Conferir em cada máquina: `/checar` (Windows) ou `--checar` (Mac)
+
+**Windows**
 ```
 deploy\instalar_windows.bat             (instala, cria .env, testa com caso fictício)
 deploy\agendar_tarefas_windows.bat      (como administrador; /listar e /remover disponíveis)
 ```
-Instalar num caminho curto (ex.: `C:\CALDEIRA`). Não ligar rotinas no Windows e na VPS ao mesmo tempo.
+Instalar num caminho curto (ex.: `C:\CALDEIRA`).
+
+**Mac** (Python 3.10+ do python.org ou `brew install python@3.12`; PDF: Word ou `brew install --cask libreoffice`;
+OCR: `brew install tesseract tesseract-lang`)
+```
+bash deploy/mac/instalar_mac.sh          (ou duplo clique em deploy/mac/Instalar no Mac.command)
+bash deploy/mac/agendar_tarefas_mac.sh   (ou "Agendar rotinas no Mac.command"; --listar e --remover disponíveis)
+```
+Instalar fora de Documentos/Mesa/Downloads/iCloud (ex.: `~/CALDEIRA_ADVOGADOS`). Mac das rotinas: ligado nos
+horários, usuário logado, sem repouso automático (Ajustes > Bateria/Energia) e servidor em Itens de Início.
+
+Nunca ligar rotinas em duas máquinas (ou máquina + VPS) ao mesmo tempo: o cliente recebe mensagem em dobro.
 VPS 24h: `docs/DEPLOY_VPS.md`.

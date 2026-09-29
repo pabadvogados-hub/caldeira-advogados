@@ -15,8 +15,9 @@ escritório: **Fluxo inicial (SDR e Closer) -> 1 Onboarding -> 2 Formalização 
 - Varre publicações, controla prazos, monta a pauta da semana e o relatório aos clientes.
 - Cuida da régua de cobrança dos honorários, da inadimplência e do fechamento do mês.
 
-Tudo roda na máquina do escritório (e, se o escritório quiser, numa VPS ligada 24 horas). Os dados dos
-clientes ficam na pasta de clientes do escritório, nunca no repositório do sistema.
+Tudo roda nos computadores do escritório, **Windows ou Mac** (e, se o escritório quiser, numa VPS ligada
+24 horas). Os dados dos clientes ficam na pasta de clientes do servidor do escritório, nunca no repositório
+do sistema. Um caso criado num Windows abre normalmente num Mac e vice-versa.
 
 ## Regra de ouro
 
@@ -36,7 +37,8 @@ clientes ficam na pasta de clientes do escritório, nunca no repositório do sis
    digite `claude`; ou no VS Code: Arquivo > Abrir pasta, e abra o painel do Claude).
 2. O Claude lê o `CLAUDE.md` e já sabe como o escritório trabalha, quais são os módulos e as regras.
 3. Peça em português, como pediria a um colega. Para mandar um arquivo, arraste para a janela ou cole o
-   caminho (ex.: `Z:\CLIENTES\AGRONEGOCIO\JOAO DA SILVA`).
+   caminho. Windows: `Z:\CLIENTES\AGRONEGOCIO\JOAO DA SILVA`. Mac: `/Volumes/CLIENTES/AGRONEGOCIO/JOAO DA SILVA`
+   (no Mac, arrastar a pasta do Finder para o Terminal cola o caminho).
 4. Antes de qualquer envio (WhatsApp, ZapSign, Asaas), o Claude mostra o que vai sair e pede o seu ok.
 
 ## Exemplos de pedidos por cargo
@@ -99,6 +101,9 @@ Se preferir o comando direto, cada pedido corresponde a um comando: veja `docs/M
 | dia 1 / dia 5 | radar mensal / fechamento do mês anterior |
 
 Agenda completa e o que cada uma manda (ou não) para o cliente: `docs/MAPA_DO_SISTEMA.md`.
+Elas rodam em **uma única máquina** do escritório (Windows ou Mac) ou na VPS - nunca em duas (ver
+"Para quem instala"). Essa máquina precisa ficar ligada nos horários; se for um Mac, com o usuário logado,
+sem dormir e com o servidor conectado.
 
 ## Onde ver os resultados
 
@@ -113,14 +118,48 @@ Agenda completa e o que cada uma manda (ou não) para o cliente: `docs/MAPA_DO_S
 1. Peça ao Claude: "confere a saúde do sistema" (roda `python deploy/vps/healthcheck.py --sem-aviso`).
 2. "VAZIO" = falta a chave no `config/.env` (a etapa está em modo seguro). "FALHA" = a chave existe mas
    o serviço não respondeu (senha trocada, sistema fora do ar).
-3. Na máquina do escritório: `deploy\instalar_windows.bat /checar` mostra o que está instalado e o que falta.
+3. Mostra o que está instalado e o que falta, sem mudar nada:
+   Windows `deploy\instalar_windows.bat /checar` | Mac `bash deploy/mac/instalar_mac.sh --checar`.
 4. Se estiver configurado, o número de `ALERTA_WHATSAPP` recebe aviso quando alguma integração cai.
+5. No Mac, "pasta dos clientes não encontrada" quase sempre é o servidor desconectado: Finder > Ir >
+   Conectar ao Servidor > `smb://SERVIDOR/CLIENTES`.
 
-## Para quem instala
+## Para quem instala (Windows e Mac)
 
+O escritório usa computadores **Windows e Mac** misturados. O sistema é o mesmo nos dois; muda só o
+instalador e o jeito de escrever o caminho da pasta do servidor.
+
+**Windows**
 ```
 deploy\instalar_windows.bat            (instala; depois preencher config\.env)
 deploy\instalar_windows.bat /checar    (confere sem mudar nada)
-deploy\agendar_tarefas_windows.bat     (agenda as rotinas; como administrador)
+deploy\agendar_tarefas_windows.bat     (agenda as rotinas; como administrador - SÓ na máquina das rotinas)
 ```
-VPS 24 horas (bônus): `docs/DEPLOY_VPS.md`. As rotinas ficam **ou** no Windows **ou** na VPS, nunca nos dois.
+
+**Mac** (Terminal, dentro da pasta do sistema; ou duplo clique nos atalhos da pasta `deploy/mac/`)
+```
+bash deploy/mac/instalar_mac.sh              (= "Instalar no Mac.command"; depois preencher config/.env)
+bash deploy/mac/instalar_mac.sh --checar     (confere sem mudar nada)
+bash deploy/mac/agendar_tarefas_mac.sh       (= "Agendar rotinas no Mac.command" - SÓ na máquina das rotinas)
+```
+Na primeira vez que der duplo clique num `.command`, o Mac pode bloquear (arquivo baixado da internet):
+botão direito > Abrir > Abrir. No Mac, instale o sistema numa pasta fora de Documentos/Mesa/Downloads/iCloud
+(ex.: `~/CALDEIRA_ADVOGADOS`), senão o macOS bloqueia as rotinas automáticas.
+
+**Pasta do servidor (`PASTA_CLIENTES_RAIZ` no `config/.env`)** - é a mesma pasta, escrita do jeito de cada sistema:
+
+| Sistema | Como conectar | O que vai no `config/.env` |
+|---|---|---|
+| Windows | Explorador > Este Computador > Mapear unidade de rede | `Z:\CLIENTES` ou `\\SERVIDOR\CLIENTES` |
+| Mac | Finder > Ir > Conectar ao Servidor > `smb://SERVIDOR/CLIENTES` (e colocar em Ajustes > Geral > Itens de Início para conectar sozinho) | `/Volumes/CLIENTES` |
+
+**Cada máquina tem o seu `config/.env`** (ele não vai para o repositório). Copie as chaves de um para o
+outro, mas ajuste o `PASTA_CLIENTES_RAIZ` para o jeito daquela máquina.
+
+**REGRA: as rotinas automáticas ficam ligadas em UMA máquina só** - um Windows, **ou** um Mac, **ou** a VPS.
+Duas máquinas agendadas = o cliente recebe WhatsApp e cobrança **em dobro**. As outras máquinas usam só os
+comandos sob demanda (gerar documento, notificação, peça, painel...). Para trocar a máquina das rotinas:
+primeiro desligar na antiga (`deploy\agendar_tarefas_windows.bat /remover` ou
+`bash deploy/mac/agendar_tarefas_mac.sh --remover`), depois agendar na nova.
+
+VPS 24 horas (bônus): `docs/DEPLOY_VPS.md`. Se as rotinas forem para a VPS, nenhuma máquina do escritório agenda.

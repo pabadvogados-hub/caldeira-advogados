@@ -20,6 +20,8 @@ SDR -> Closer fecha  -> triagem e     -> contrato,        -> notificação     -
 ## Fase -> módulo -> comando -> cargo -> rotina -> credenciais
 
 Comandos rodados na pasta do sistema (`python MODULO/main.py ...`). "Sob demanda" = alguém pede.
+Iguais no Windows e no Mac; no Mac, antes, `source .venv/bin/activate` (ou use `.venv/bin/python` no lugar de
+`python`). Caminho de pasta do cliente: `Z:\CLIENTES\...` no Windows, `/Volumes/CLIENTES/...` no Mac.
 
 | Fase | O que acontece | Comando | Cargo responsável | Rotina automática | Credenciais |
 |---|---|---|---|---|---|
@@ -63,8 +65,11 @@ O módulo GESTAO ainda está em construção; módulo que não existe na máquin
 
 ## Rotinas automáticas
 
-Agendadas em UM lugar só: **ou** na máquina do escritório (`deploy\agendar_tarefas_windows.bat`) **ou** na VPS
-(`docs/DEPLOY_VPS.md`). Nas duas ao mesmo tempo, o cliente receberia mensagem em dobro.
+Agendadas em UM lugar só: **ou** num Windows do escritório (`deploy\agendar_tarefas_windows.bat`), **ou** num
+Mac do escritório (`bash deploy/mac/agendar_tarefas_mac.sh`, launchd, agentes `br.com.caldeira.*`), **ou** na VPS
+(`docs/DEPLOY_VPS.md`). Em duas ao mesmo tempo, o cliente receberia mensagem em dobro. As outras máquinas
+(Windows ou Mac) usam só os comandos sob demanda. Os três agendadores têm a mesma agenda e os mesmos comandos
+(no Mac, os horários de uma mesma rotina ficam num agente só: 16 agentes = as 19 tarefas do Windows).
 
 | Rotina | Quando | Manda mensagem ao cliente? | Log |
 |---|---|---|---|
@@ -83,9 +88,14 @@ Agendadas em UM lugar só: **ou** na máquina do escritório (`deploy\agendar_ta
 | Financeiro: inadimplência | segunda 8h | não | `logs/financeiro_inadimplencia.log` |
 | Financeiro: honorários novos | segunda a sexta 18h | não | `logs/financeiro_honorarios_novos.log` |
 | Financeiro: fechamento do mês anterior | dia 5, 8h | não | `logs/financeiro_fechamento.log` |
-| Healthcheck | Windows 6h50 / VPS de hora em hora | só para `ALERTA_WHATSAPP` | `logs/healthcheck.log` |
+| Healthcheck | Windows e Mac 6h50 / VPS de hora em hora | só para `ALERTA_WHATSAPP` | `logs/healthcheck.log` |
 
-Horários no fuso de Rondônia (America/Porto_Velho). Na VPS, as rotinas que mandam mensagem ao cliente
+Conferir o que está agendado: Windows `deploy\agendar_tarefas_windows.bat /listar`; Mac
+`bash deploy/mac/agendar_tarefas_mac.sh --listar`. Desligar: `/remover` ou `--remover`.
+
+Horários no fuso de Rondônia (America/Porto_Velho); no Windows e no Mac valem o relógio da máquina (deixar no
+fuso de Porto Velho). O Mac das rotinas precisa ficar ligado, com o usuário logado e com o servidor conectado; se
+estava dormindo no horário, a rotina roda quando ele acorda. Na VPS, as rotinas que mandam mensagem ao cliente
 **não** são recuperadas se a VPS estiver fora do ar no horário (para não sair mensagem de madrugada); os
 relatórios são recuperados quando ela volta.
 
@@ -108,7 +118,7 @@ juntos). Quem está em `FINANCEIRO/clientes_nao_cobrar.txt` nunca recebe. Régua
 
 | O quê | Onde |
 |---|---|
-| Documentos do cliente (triagem, contrato, notificação, peças) | pasta do cliente em `PASTA_CLIENTES_RAIZ/AGRONEGOCIO/NOME DO CLIENTE/` |
+| Documentos do cliente (triagem, contrato, notificação, peças) | pasta do cliente em `PASTA_CLIENTES_RAIZ/AGRONEGOCIO/NOME DO CLIENTE/` (o `caso.json` grava os caminhos relativos a essa pasta, então abre igual no Windows e no Mac) |
 | Relatórios do Financeiro | `SAIDA/FINANCEIRO/` (`COBRANCA/`, `INADIMPLENCIA/`, `FECHAMENTO/AAAA-MM/`, `HONORARIOS_NOVOS/`) |
 | Relatórios dos outros módulos | `SAIDA/<MODULO>/` |
 | O que cada rotina fez | `logs/<rotina>.log` |
@@ -119,14 +129,15 @@ juntos). Quem está em `FINANCEIRO/clientes_nao_cobrar.txt` nunca recebe. Régua
 ## Variáveis do `config/.env`
 
 Copiar de `config/.env.example` e preencher na máquina (canal seguro, nunca por e-mail ou WhatsApp).
-Sem a chave, a etapa correspondente fica em modo seguro.
+Sem a chave, a etapa correspondente fica em modo seguro. **Cada máquina (Windows ou Mac) tem o seu `config/.env`**;
+o que muda de uma para outra é o jeito de escrever os caminhos (`PASTA_CLIENTES_RAIZ` etc.).
 
 | Variável | Para quê | Quem usa | Obrigatória? |
 |---|---|---|---|
 | `ANTHROPIC_API_KEY` | IA (Claude) do escritório | todos os módulos com IA | sim |
 | `MODELO_TRIAGEM`, `MODELO_EXTRACAO`, `MODELO_PECAS` | modelo da IA por tarefa | CONTRATACAO, JUDICIAL, EXTRAJUDICIAL | não (tem padrão) |
 | `MODELO_SDR`, `MODELO_CONTROLADORIA` | modelo da IA do SDR e da varredura | COMERCIAL, CONTROLADORIA | não (tem padrão) |
-| `PASTA_CLIENTES_RAIZ` | pasta dos clientes (servidor ou Drive sincronizado) | CONTRATACAO, EXTRAJUDICIAL, JUDICIAL, CONTROLADORIA, FINANCEIRO | sim |
+| `PASTA_CLIENTES_RAIZ` | pasta dos clientes (servidor ou Drive sincronizado). Windows `Z:\CLIENTES` ou `\\SERVIDOR\CLIENTES`; Mac `/Volumes/CLIENTES` (após conectar em `smb://SERVIDOR/CLIENTES`) | CONTRATACAO, EXTRAJUDICIAL, JUDICIAL, CONTROLADORIA, FINANCEIRO | sim |
 | `PASTA_ARQUIVO_CLIENTES` | onde ficam os casos finalizados | CONTROLADORIA | conferir no módulo |
 | `ZAPSIGN_API_TOKEN` | assinatura digital | CONTRATACAO | para enviar contratos |
 | `ADVOGADO_RESPONSAVEL_NOME`, `ADVOGADO_RESPONSAVEL_EMAIL` | signatário do escritório no ZapSign | INTEGRACOES/zapsign | não |
@@ -144,7 +155,8 @@ Sem a chave, a etapa correspondente fica em modo seguro.
 | `MODELO_MARKETING` | modelo da IA da leitura dos criativos e das variações de texto | MARKETING | não (padrão: `MODELO_SDR`) |
 | `MARKETING_LANDING_URL`, `MARKETING_CALCULADORA_URL` | endereços publicados da landing e da calculadora (links com UTM) | MARKETING | não |
 | `ALERTA_WHATSAPP` | número que recebe os avisos do healthcheck (precisa ser contato no Atende Direito) | deploy/vps/healthcheck.py | recomendada |
-| `SOFFICE_PATH` | caminho do LibreOffice, se o Word não estiver instalado | NUCLEO (PDF) | não |
-| `TESSERACT_CMD` | OCR de documento escaneado | CONTRATACAO | não |
+| `SOFFICE_PATH` | caminho do LibreOffice, se estiver fora do lugar padrão (Windows `C:\Program Files\LibreOffice`, Mac `/Applications/LibreOffice.app`, Homebrew) | NUCLEO (PDF) | não |
+| `PDF_CONVERSOR` | `libreoffice` = não usar o Word para o PDF (Mac sem Word, ou Mac das rotinas) | NUCLEO (PDF) | não |
+| `TESSERACT_CMD` | OCR de documento escaneado, se estiver fora do lugar padrão (Windows `C:\Program Files\Tesseract-OCR`, Mac `/opt/homebrew/bin` ou `/usr/local/bin`) | CONTRATACAO | não |
 
 Lista montada a partir do código em 29/09/2026. O `config/.env.example` é a referência final de cada módulo.
