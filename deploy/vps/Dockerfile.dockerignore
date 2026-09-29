@@ -1,0 +1,15 @@
+# Usado pelo Docker BuildKit para o deploy/vps/Dockerfile: o que NAO entra na imagem.
+.git
+config/.env
+config/*.json
+config/token*
+config/credentials*
+CLIENTES
+SAIDA
+logs
+.venv
+venv
+**/__pycache__
+**/*.pyc
+*.pdf
+*.xlsx

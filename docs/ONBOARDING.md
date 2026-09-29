@@ -1,30 +1,44 @@
-# Onboarding - o que falta para a fase de contratacao rodar em producao
+# Onboarding - o que falta para o sistema rodar em produção
 
-Enquanto um item nao chega, a etapa correspondente fica em modo seguro (nada sai do escritorio).
+Enquanto um item não chega, a etapa correspondente fica em modo seguro (gera arquivos, nada sai do escritório).
+Variáveis completas: `config/.env.example`. Tabela de qual comando usa qual chave: `docs/MAPA_DO_SISTEMA.md`.
 
-## Credenciais (canal seguro, direto no config/.env da maquina do escritorio)
-- [ ] `ANTHROPIC_API_KEY` - conta Anthropic do escritorio (obrigatoria)
-- [ ] `ZAPSIGN_API_TOKEN` - ZapSign > Configuracoes > API
-- [ ] `ATENDE_DIREITO_TOKEN` - Atende Direito > Integracoes
-- [ ] `ADVBOX_API_TOKEN` - ADVBOX > Configuracoes > API (conferir se o plano libera API)
-- [ ] `ASAAS_API_TOKEN` - Asaas > Integracoes > Chave de API
+## 1. Credenciais (canal seguro, direto no config/.env da máquina do escritório)
+- [ ] `ANTHROPIC_API_KEY` - conta Anthropic do escritório (obrigatória)
 - [ ] `PASTA_CLIENTES_RAIZ` - caminho da pasta de clientes no servidor interno
+- [ ] `ZAPSIGN_API_TOKEN` - ZapSign > Configurações > API
+- [ ] `ATENDE_DIREITO_TOKEN` (e, se houver, `ATENDE_DIREITO_FLOW_TOKEN` para medir tempo de resposta)
+- [ ] `ADVBOX_API_TOKEN` - conferir se o plano libera API
+- [ ] `ASAAS_API_TOKEN`
+- [ ] Gmail do escritório: cliente OAuth em `config/credentials_gmail.json` + `python INTEGRACOES/gmail_integration.py autorizar` (só cria rascunho)
+- [ ] `META_ACCESS_TOKEN` + `META_AD_ACCOUNT_ID` (relatório do Meta Ads, só leitura)
+- [ ] `ALERTA_WHATSAPP` - número que recebe alerta quando algo cai
 
-## Do escritorio
-- [ ] Modelos oficiais em .docx: contrato de honorarios, procuracao, declaracao de hipossuficiencia
-      (trocar dados pelos campos de `docs/CAMPOS_DOS_MODELOS.md`)
-- [ ] Timbrado oficial em .docx (hoje reconstruido das pecas: `config/timbrado_modelo.docx`)
-- [ ] Lista de advogados que devem constar na procuracao (hoje: Augusto Caldeira e Lorena Gois Fontenele)
-- [ ] Nome de cada pessoa por cargo e o ID no ADVBOX (`config/equipe.py`)
-- [ ] Tipo de processo e fase inicial usados no ADVBOX para o agro (`ADVBOX_TIPO_PROCESSO`, `ADVBOX_FASE_INICIAL`)
-- [ ] Nomenclatura padrao das pastas no servidor (ajustar `config/escritorio.py`)
-- [ ] Decisao sobre prazos: manter 15/60 dias ou reduzir para 5/15 (`PRAZOS` em `config/escritorio.py`)
-- [ ] Checklist do previdenciario (salario-maternidade, BPC), se for entrar nesta fase tambem
+## 2. Do escritório
+- [ ] Modelos oficiais em .docx: contrato de honorários, procuração, declaração (campos em `docs/CAMPOS_DOS_MODELOS.md`)
+- [ ] Timbrado oficial em .docx (hoje reconstruído das peças: `config/timbrado_modelo.docx`)
+- [ ] Advogados da procuração (hoje: Augusto Caldeira e Lorena Gois Fontenele) e confirmar a OAB/MG 182.814 do Dr. Augusto
+- [ ] Nome e ID do ADVBOX de cada cargo (`config/equipe.py`); tipos de tarefa e de processo usados no ADVBOX
+- [ ] E-mails dos bancos por agência, com razão social e CNPJ (`config/bancos_emails.json`) - sem isso a notificação não vira rascunho
+- [ ] Valores das propostas do comercial (`COMERCIAL/config_comercial.py`) e número de WhatsApp da calculadora
+- [ ] Comissões e exclusões do financeiro (`config/regras_financeiras.py`) e `FINANCEIRO/clientes_nao_cobrar.txt`
+- [ ] Nomenclatura das pastas no servidor e pasta de ARQUIVO para casos encerrados (`PASTA_ARQUIVO_CLIENTES`)
+- [ ] Feriados estaduais e municipais (`FERIADOS_EXTRAS`)
+- [ ] Prazos: manter 15/60 dias ou reduzir para 5/15 (`PRAZOS` em `config/escritorio.py`)
+- [ ] Notificação: fixar prazo de resposta no texto? padrão de 3 anos de carência + 15 parcelas sem laudo?
+- [ ] Cor das peças: laranja só na inicial e notificação (como hoje) ou em todas
+- [ ] Checklist do previdenciário (salário-maternidade, BPC), se entrar na contratação
 
-## Instalacao na maquina do escritorio
+## 3. Conferir no primeiro uso real
+- [ ] Jurisprudência citada no DNA com número a conferir (lista em `docs/POP_FASE_JUDICIAL.md`) antes de protocolar
+- [ ] Nomes de campos do ADVBOX (transações, /posts, /last_movements) e filtro de data do Asaas
+- [ ] Uma análise de proposta de banco com IA (`EXTRAJUDICIAL/main.py proposta`)
+- [ ] Algumas conversas da auditoria de atendimento contra o painel do Atende Direito
+
+## 4. Instalação
 ```
-pip install -r requirements.txt
-copy config\.env.example config\.env      (preencher)
-python CONTRATACAO/main.py exemplo         (teste com caso ficticio)
-deploy\agendar_acompanhamento_windows.bat  (como administrador)
+deploy\instalar_windows.bat             (instala, cria .env, testa com caso fictício)
+deploy\agendar_tarefas_windows.bat      (como administrador; /listar e /remover disponíveis)
 ```
+Instalar num caminho curto (ex.: `C:\CALDEIRA`). Não ligar rotinas no Windows e na VPS ao mesmo tempo.
+VPS 24h: `docs/DEPLOY_VPS.md`.

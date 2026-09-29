@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Healthcheck: credenciais e integracoes, avisa por WhatsApp se cair (de hora em hora)
+
+[Timer]
+OnCalendar=*-*-* *:05:00 America/Porto_Velho
+Persistent=false
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

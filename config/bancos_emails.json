@@ -1,0 +1,110 @@
+{
+  "_instrucoes": [
+    "Base CENTRALIZADA de e-mails dos bancos e cooperativas para a notificacao extrajudicial.",
+    "Uma entrada por AGENCIA (o mesmo banco pode aparecer varias vezes, uma para cada agencia/municipio).",
+    "Preencher SOMENTE com dado conferido: e-mail oficial da agencia (site do banco, carta/e-mail recebido do gerente, notificacao ja respondida). Nunca chutar e-mail.",
+    "Campos: banco (nome usado no escritorio) | apelidos (como o nome aparece nas cedulas e na reuniao) | razao_social | cnpj | agencia (numero/nome) | municipio | endereco | email (destinatario principal) | email_copia (opcional, separado por virgula) | contato (gerente/setor) | observacao | conferido_em (DD/MM/AAAA).",
+    "Enquanto o e-mail estiver vazio, a automacao gera a notificacao mas NAO cria o rascunho no Gmail. Razao social, CNPJ ou endereco vazios aparecem como [CONFERIR] na notificacao e travam o rascunho.",
+    "Para agencia nova: copie uma entrada-modelo do mesmo banco, preencha e salve. Conferir com: python EXTRAJUDICIAL/main.py bancos"
+  ],
+  "bancos": [
+    {
+      "banco": "Banco do Brasil",
+      "apelidos": ["BB", "Banco do Brasil", "Banco do Brasil S.A."],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Uma entrada por agencia (ex.: Ministro Andreazza, Cacoal).",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Banco da Amazônia",
+      "apelidos": ["BASA", "Banco da Amazonia", "Banco da Amazônia S.A."],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Operacoes FNO seguem regra propria (MCR 2.6.5): conferir antes de notificar.",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Caixa Econômica Federal",
+      "apelidos": ["Caixa", "CEF", "Caixa Economica Federal", "Caixa Econômica"],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Acao judicial contra a Caixa vai para a Justica Federal.",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Sicoob Credip",
+      "apelidos": ["Credip", "Sicoob Credip"],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Cooperativa (disputa sobre CDC).",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Sicoob Amazônia",
+      "apelidos": ["Sicoob Amazonia"],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo.",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Sicredi",
+      "apelidos": ["Sicredi", "Sicredi Univales"],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Conferir a cooperativa singular da agencia do cliente.",
+      "conferido_em": ""
+    },
+    {
+      "banco": "Cresol",
+      "apelidos": ["Cresol", "Cresol Amazonia", "Cresol Amazônia"],
+      "razao_social": "",
+      "cnpj": "",
+      "agencia": "",
+      "municipio": "",
+      "endereco": "",
+      "email": "",
+      "email_copia": "",
+      "contato": "",
+      "observacao": "Entrada-modelo. Em casos anteriores a notificacao foi para os setores financeiro e de recuperacao de credito.",
+      "conferido_em": ""
+    }
+  ]
+}

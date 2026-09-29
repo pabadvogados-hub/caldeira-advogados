@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Contratacao: assinaturas no ZapSign e cobranca de documentos (9h, 13h, 17h)
+
+[Timer]
+OnCalendar=*-*-* 09,13,17:00:00 America/Porto_Velho
+Persistent=false
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

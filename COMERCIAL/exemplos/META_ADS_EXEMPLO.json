@@ -1,0 +1,68 @@
+{
+ "_aviso": "DADOS FICTICIOS para demonstrar o relatorio (mesmo formato da Meta Marketing API).",
+ "conta": [
+  {"spend": "825.50", "impressions": "77000", "reach": "40000", "inline_link_clicks": "860", "frequency": "1.92",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "58"},
+               {"action_type": "lead", "value": "4"}]}
+ ],
+ "conta_anterior": [
+  {"spend": "780.00", "impressions": "74000", "reach": "39000", "inline_link_clicks": "910", "frequency": "1.85",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "65"},
+               {"action_type": "lead", "value": "4"}]}
+ ],
+ "campanhas": [
+  {"campaign_id": "1001", "campaign_name": "[RO] Prorrogação de dívida rural - vídeo", "spend": "420.50",
+   "impressions": "38000", "reach": "21000", "inline_link_clicks": "510", "frequency": "1.81",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "31"}]},
+  {"campaign_id": "1002", "campaign_name": "[MT Norte] Produtor de soja - safra frustrada", "spend": "310.00",
+   "impressions": "24000", "reach": "15000", "inline_link_clicks": "260", "frequency": "1.60",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "18"},
+               {"action_type": "lead", "value": "4"}]},
+  {"campaign_id": "1003", "campaign_name": "[RO] Previdenciário rural - salário-maternidade", "spend": "95.00",
+   "impressions": "15000", "reach": "6000", "inline_link_clicks": "90", "frequency": "2.50",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "9"}]}
+ ],
+ "campanhas_anterior": [
+  {"campaign_id": "1001", "campaign_name": "[RO] Prorrogação de dívida rural - vídeo", "spend": "390.00",
+   "impressions": "37000", "reach": "20500", "inline_link_clicks": "560", "frequency": "1.80",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "39"}]},
+  {"campaign_id": "1002", "campaign_name": "[MT Norte] Produtor de soja - safra frustrada", "spend": "300.00",
+   "impressions": "23000", "reach": "14500", "inline_link_clicks": "260", "frequency": "1.58",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "16"},
+               {"action_type": "lead", "value": "4"}]},
+  {"campaign_id": "1003", "campaign_name": "[RO] Previdenciário rural - salário-maternidade", "spend": "90.00",
+   "impressions": "14000", "reach": "5800", "inline_link_clicks": "90", "frequency": "2.40",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "10"}]}
+ ],
+ "anuncios": [
+  {"campaign_name": "[RO] Prorrogação de dívida rural - vídeo", "adset_name": "RO - produtor 25-65", "ad_id": "2001",
+   "ad_name": "Vídeo Dr. Augusto - prorrogação", "spend": "260.00", "impressions": "21000", "reach": "12000",
+   "inline_link_clicks": "350", "frequency": "1.75",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "26"}]},
+  {"campaign_name": "[RO] Prorrogação de dívida rural - vídeo", "adset_name": "RO - produtor 25-65", "ad_id": "2002",
+   "ad_name": "Carrossel - o que diz o Manual de Crédito Rural", "spend": "160.50", "impressions": "17000",
+   "reach": "5000", "inline_link_clicks": "160", "frequency": "3.40",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "5"}]},
+  {"campaign_name": "[MT Norte] Produtor de soja - safra frustrada", "adset_name": "MT Norte - soja", "ad_id": "2003",
+   "ad_name": "Vídeo - seca na soja", "spend": "240.00", "impressions": "16000", "reach": "10500",
+   "inline_link_clicks": "220", "frequency": "1.52",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "18"},
+               {"action_type": "lead", "value": "4"}]},
+  {"campaign_name": "[MT Norte] Produtor de soja - safra frustrada", "adset_name": "MT Norte - soja", "ad_id": "2004",
+   "ad_name": "Imagem - calculadora de juros", "spend": "70.00", "impressions": "8000", "reach": "6600",
+   "inline_link_clicks": "40", "frequency": "1.21", "actions": []},
+  {"campaign_name": "[RO] Previdenciário rural - salário-maternidade", "adset_name": "RO - mulheres 18-40",
+   "ad_id": "2005", "ad_name": "Vídeo - salário-maternidade rural", "spend": "95.00", "impressions": "15000",
+   "reach": "6000", "inline_link_clicks": "90", "frequency": "2.50",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "9"}]}
+ ],
+ "regioes": [
+  {"region": "Rondônia", "spend": "560.00", "impressions": "52000", "reach": "27000", "inline_link_clicks": "600",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "42"}]},
+  {"region": "Mato Grosso", "spend": "215.00", "impressions": "19000", "reach": "10000", "inline_link_clicks": "210",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "16"},
+               {"action_type": "lead", "value": "4"}]},
+  {"region": "Pará", "spend": "50.50", "impressions": "6000", "reach": "3000", "inline_link_clicks": "50",
+   "actions": []}
+ ]
+}

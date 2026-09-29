@@ -1,0 +1,19 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Nao editar la: editar aqui e rodar atualizar.sh.
+[Unit]
+Description=Caldeira - Healthcheck: credenciais e integracoes, avisa por WhatsApp se cair (de hora em hora)
+After=network-online.target
+Wants=network-online.target
+# modulo ainda nao instalado: a rotina e pulada (nao conta como falha)
+ConditionPathExists=/opt/caldeira/app/deploy/vps/healthcheck.py
+
+[Service]
+Type=oneshot
+User=caldeira
+Group=caldeira
+WorkingDirectory=/opt/caldeira/app
+Environment=PYTHONIOENCODING=utf-8 PYTHONUTF8=1 TZ=America/Porto_Velho
+ExecStart=/opt/caldeira/app/.venv/bin/python deploy/vps/healthcheck.py
+StandardOutput=append:/opt/caldeira/app/logs/healthcheck.log
+StandardError=inherit
+TimeoutStartSec=3h
+Nice=5

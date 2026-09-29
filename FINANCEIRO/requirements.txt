@@ -1,0 +1,2 @@
+# Dependencias extras do FINANCEIRO (os instaladores em deploy/ instalam tambem este arquivo)
+openpyxl        # planilhas XLSX (inadimplencia, fechamento, honorarios novos)

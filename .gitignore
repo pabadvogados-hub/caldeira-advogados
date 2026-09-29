@@ -1,6 +1,7 @@
 # Credenciais - NUNCA versionar
 config/.env
 config/*.json
+!config/bancos_emails.json
 config/token*
 config/credentials*
 
@@ -19,3 +20,8 @@ venv/
 *.tmp
 ~$*
 logs/
+
+# Relatorios e saidas geradas (tem dado de cliente)
+SAIDA/
+*.xlsx
+!docs/*.xlsx

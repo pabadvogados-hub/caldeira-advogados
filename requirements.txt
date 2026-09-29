@@ -4,5 +4,9 @@ python-docx
 PyMuPDF
 Pillow
 requests
+openpyxl
+google-api-python-client
+google-auth
+google-auth-oauthlib
 docx2pdf        # usa o Word instalado para gerar PDF (alternativa: LibreOffice)
 pytesseract     # opcional: OCR de documento escaneado (precisa do Tesseract instalado)

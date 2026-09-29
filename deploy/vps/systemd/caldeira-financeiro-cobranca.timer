@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Financeiro: regua de cobranca dos honorarios (seg a sex 10h)
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 10:00:00 America/Porto_Velho
+Persistent=false
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

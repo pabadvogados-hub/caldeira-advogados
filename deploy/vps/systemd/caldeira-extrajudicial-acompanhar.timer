@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Extrajudicial: acompanhamento das notificacoes (diario 8h30)
+
+[Timer]
+OnCalendar=*-*-* 08:30:00 America/Porto_Velho
+Persistent=false
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

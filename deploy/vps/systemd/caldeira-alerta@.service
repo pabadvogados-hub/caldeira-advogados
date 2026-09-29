@@ -1,0 +1,13 @@
+# Aviso de falha: chamado pelo OnFailure= das rotinas. %i = nome da unidade que falhou.
+[Unit]
+Description=Caldeira - aviso por WhatsApp da falha de %i
+
+[Service]
+Type=oneshot
+User=caldeira
+Group=caldeira
+WorkingDirectory=/opt/caldeira/app
+Environment=PYTHONIOENCODING=utf-8 PYTHONUTF8=1 TZ=America/Porto_Velho
+ExecStart=/opt/caldeira/app/.venv/bin/python deploy/vps/healthcheck.py --falha %i
+StandardOutput=append:/opt/caldeira/app/logs/healthcheck.log
+StandardError=inherit

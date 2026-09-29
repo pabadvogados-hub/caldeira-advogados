@@ -204,9 +204,21 @@ def tabela(doc, cabecalho, linhas, larguras_cm=None, tamanho=9):
             p = cels[i].paragraphs[0]
             _texto_com_conferir(p, valor if valor not in (None, '') else '-', tamanho=tamanho)
     if larguras_cm:
+        # o Word so respeita a largura com autoajuste desligado e a grade da tabela preenchida
+        t.autofit = False
+        grade = t._tbl.tblGrid
+        for i, col in enumerate(grade.findall(qn('w:gridCol'))):
+            if i < len(larguras_cm):
+                col.set(qn('w:w'), str(int(Cm(larguras_cm[i]).twips)))
         for linha in t.rows:
             for i, w in enumerate(larguras_cm):
                 linha.cells[i].width = Cm(w)
+    # cabecalho repete no topo de cada pagina e nao fica sozinho no pe da pagina
+    trPr = t.rows[0]._tr.get_or_add_trPr()
+    trPr.append(parse_xml(f'<w:tblHeader {nsdecls("w")}/>'))
+    for cel in t.rows[0].cells:
+        for p in cel.paragraphs:
+            p.paragraph_format.keep_with_next = True
     doc.add_paragraph()
     return t
 

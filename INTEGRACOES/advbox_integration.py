@@ -736,3 +736,81 @@ if __name__ == '__main__':
     from dotenv import load_dotenv
     load_dotenv(os.path.join(os.path.dirname(__file__), '..', 'config', '.env'))
     testar_conexao()
+
+
+# ============================================================
+# ACRESCIMOS - CONTROLADORIA E GESTAO (so leitura)
+# Ritmo proprio para respeitar o limite de 30 GET/min do ADVBOX em varreduras grandes
+# (~1.000 processos). Intervalo ajustavel por ADVBOX_INTERVALO_GET (segundos).
+# ============================================================
+
+_ULTIMO_GET = [0.0]
+
+
+def _get_ritmado(endpoint, params=None):
+    intervalo = float(os.getenv('ADVBOX_INTERVALO_GET', '2.1') or 2.1)
+    espera = intervalo - (time.time() - _ULTIMO_GET[0])
+    if espera > 0:
+        time.sleep(espera)
+    try:
+        return _request('GET', endpoint, params=params) or {}
+    finally:
+        _ULTIMO_GET[0] = time.time()
+
+
+def paginar_ritmado(endpoint, params=None, por_pagina=100, maximo=20000):
+    """GET paginado (limit/offset) respeitando o limite de requisicoes."""
+    params = dict(params or {})
+    todas, offset = [], 0
+    while True:
+        params['limit'], params['offset'] = por_pagina, offset
+        data = _get_ritmado(endpoint, params)
+        registros = data.get('data', []) if isinstance(data, dict) else (data or [])
+        todas.extend(registros)
+        total = data.get('totalCount', 0) if isinstance(data, dict) else 0
+        if not registros or len(todas) >= total or len(todas) >= maximo:
+            break
+        offset += por_pagina
+    return todas
+
+
+def listar_processos_todos(**filtros):
+    """Todos os processos (/lawsuits), paginado e ritmado."""
+    return paginar_ritmado('/lawsuits', filtros)
+
+
+def indice_processos_por_numero(processos):
+    """{numero do processo so com digitos: processo} para cruzar com o DJEN."""
+    indice = {}
+    for p in processos or []:
+        for campo in ('process_number', 'protocol_number'):
+            num = ''.join(c for c in str(p.get(campo) or '') if c.isdigit())
+            if len(num) >= 15:
+                indice.setdefault(num, p)
+    return indice
+
+
+def listar_tarefas_ritmado(**filtros):
+    """Tarefas (/posts) com os filtros do ADVBOX (pares de data completos), paginado e ritmado."""
+    return paginar_ritmado('/posts', filtros)
+
+
+def listar_movimentacoes_periodo(date_start, date_end):
+    """Movimentacoes de TODOS os processos no periodo (YYYY-MM-DD), numa varredura so."""
+    return paginar_ritmado('/last_movements', {'date_start': date_start, 'date_end': date_end})
+
+
+def usuarios_advbox():
+    """Lista de usuarios (id, name) das settings."""
+    return (carregar_settings() or {}).get('users', [])
+
+
+def id_usuario_por_nome(nome):
+    """ID do usuario do ADVBOX cujo nome contem `nome` (sem diferenciar maiusculas)."""
+    alvo = (nome or '').strip().upper()
+    if not alvo:
+        return None
+    for u in usuarios_advbox():
+        if alvo in str(u.get('name', '')).upper() or str(u.get('name', '')).upper() in alvo:
+            return u.get('id')
+    return None

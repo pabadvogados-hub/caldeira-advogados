@@ -1,0 +1,24 @@
+# =============================================================================
+#  ALTERNATIVA OPCIONAL ao systemd (padrao: deploy/vps/instalar_vps.sh).
+#  Rodar na RAIZ do repositorio, na VPS:
+#     docker compose -f deploy/vps/docker-compose.yml up -d --build
+#     docker compose -f deploy/vps/docker-compose.yml logs -f
+#  Nunca usar junto com os timers do systemd nem com o Agendador do Windows:
+#  as rotinas que mandam mensagem rodariam em dobro.
+# =============================================================================
+services:
+  caldeira:
+    build:
+      context: ../..
+      dockerfile: deploy/vps/Dockerfile
+    container_name: caldeira-rotinas
+    restart: unless-stopped
+    environment:
+      - TZ=America/Porto_Velho
+    volumes:
+      - ../../config/.env:/app/config/.env:ro     # credenciais: ficam so na VPS, fora da imagem
+      - ../../logs:/app/logs                      # logs de cada rotina
+      - ../../SAIDA:/app/SAIDA                    # relatorios e historico da cobranca
+      # Pasta dos clientes (ex.: Google Drive montado com rclone em /mnt/clientes).
+      # No config/.env da VPS: PASTA_CLIENTES_RAIZ=/clientes
+      - /mnt/clientes:/clientes

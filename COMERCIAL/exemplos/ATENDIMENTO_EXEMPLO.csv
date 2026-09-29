@@ -1,0 +1,19 @@
+contato;telefone;origem;atendente;closer;primeira_mensagem;primeira_resposta;qualificado;reuniao_agendada;fechou;etiquetas;motivo_perda
+Lead Ficticio 01;69900000001;Meta - Prorrogação RO;SDR Ana;Closer Bruno;22/09/2026 08:12;22/09/2026 08:15;sim;sim;sim;Fechou;
+Lead Ficticio 02;69900000002;Meta - Prorrogação RO;SDR Ana;Closer Bruno;22/09/2026 09:40;22/09/2026 09:52;sim;sim;não;Perdido;achou caro
+Lead Ficticio 03;69900000003;Meta - Soja MT Norte;SDR Ana;Closer Carla;22/09/2026 13:05;22/09/2026 13:09;sim;sim;sim;Fechou;
+Lead Ficticio 04;69900000004;Instagram orgânico;SDR Diego;;22/09/2026 19:48;23/09/2026 08:30;não;não;não;Sem interesse;
+Lead Ficticio 05;69900000005;Meta - Prorrogação RO;SDR Diego;Closer Bruno;23/09/2026 07:55;23/09/2026 08:40;sim;não;não;Qualificado;
+Lead Ficticio 06;69900000006;Indicação;SDR Ana;Closer Carla;23/09/2026 10:20;23/09/2026 10:22;sim;sim;sim;Contrato assinado;
+Lead Ficticio 07;69900000007;Meta - Soja MT Norte;SDR Diego;Closer Carla;23/09/2026 21:15;24/09/2026 09:05;sim;sim;não;Reunião agendada;
+Lead Ficticio 08;69900000008;Meta - Previdenciário;SDR Ana;;24/09/2026 11:02;24/09/2026 11:04;não;não;não;Perdido;
+Lead Ficticio 09;69900000009;Meta - Prorrogação RO;SDR Ana;Closer Bruno;24/09/2026 14:30;24/09/2026 14:41;sim;sim;não;Reunião agendada;
+Lead Ficticio 10;69900000010;Meta - Soja MT Norte;SDR Diego;;24/09/2026 22:40;;não;não;não;;
+Lead Ficticio 11;69900000011;Calculadora de juros;SDR Ana;Closer Carla;25/09/2026 08:05;25/09/2026 08:07;sim;sim;sim;Fechou;
+Lead Ficticio 12;69900000012;Meta - Prorrogação RO;SDR Diego;;25/09/2026 12:50;25/09/2026 14:10;não;não;não;Sem interesse;não é produtor rural
+Lead Ficticio 13;69900000013;Meta - Previdenciário;SDR Ana;Closer Bruno;25/09/2026 16:33;25/09/2026 16:38;sim;sim;não;Qualificado;
+Lead Ficticio 14;69900000014;Calculadora de juros;SDR Diego;Closer Carla;26/09/2026 06:45;26/09/2026 08:20;sim;sim;sim;Fechou;
+Lead Ficticio 15;69900000015;Meta - Soja MT Norte;SDR Diego;;26/09/2026 20:10;;não;não;não;;
+Lead Ficticio 16;69900000016;Indicação;SDR Ana;Closer Bruno;27/09/2026 10:00;27/09/2026 11:30;sim;não;não;Qualificado;
+Lead Ficticio 17;69900000017;Meta - Prorrogação RO;SDR Ana;;27/09/2026 15:20;27/09/2026 15:24;não;não;não;Aguardando;
+Lead Ficticio 18;69900000018;Meta - Soja MT Norte;SDR Diego;Closer Carla;28/09/2026 09:10;28/09/2026 09:14;sim;sim;não;Reunião agendada;

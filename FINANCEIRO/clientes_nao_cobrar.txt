@@ -1,0 +1,9 @@
+# Clientes que NAO recebem cobranca automatica pelo WhatsApp (FINANCEIRO/main.py cobranca).
+# Um por linha. Pode ser:
+#   - parte do nome, em MAIUSCULO (ex.: FULANO DE TAL)
+#   - ID do cliente no Asaas (comeca com cus_)
+#   - CPF/CNPJ (so numeros ou com pontuacao)
+# Linhas iniciadas por # sao ignoradas.
+# Quem mantem: Financeiro. Motivos comuns: acordo em andamento, cliente pediu contato so por
+# ligacao, familiar/parceiro, caso em negociacao pelo titular.
+# Comeca VAZIO de proposito.

@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Financeiro: contratos novos sem cobranca no Asaas (seg a sex 18h)
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 18:00:00 America/Porto_Velho
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

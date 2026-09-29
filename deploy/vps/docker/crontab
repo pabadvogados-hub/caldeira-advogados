@@ -1,0 +1,22 @@
+# Rotinas do Caldeira Advogados Associados - alternativa Docker (o padrao e o systemd).
+# Horario de Rondonia: o container roda com TZ=America/Porto_Velho.
+# Mesma agenda de deploy/vps/systemd e de deploy/agendar_tarefas_windows.bat.
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+R="bash /app/deploy/vps/rodar_rotina.sh"
+
+# m  h        dia    mes dia-sem  comando
+0    9,13,17  *      *   *        $R contratacao_acompanhar CONTRATACAO/main.py acompanhar --enviar
+30   8        *      *   *        $R extrajudicial_acompanhar EXTRAJUDICIAL/main.py acompanhar --enviar
+30   7        *      *   *        $R controladoria_varredura CONTROLADORIA/main.py varredura --dias 3
+0    8        1,16   *   *        $R controladoria_relatorio_clientes CONTROLADORIA/main.py relatorio-clientes --dias 15
+0    7        *      *   1        $R gestao_pauta GESTAO/main.py pauta
+0    16       *      *   5        $R gestao_auditoria GESTAO/main.py auditoria
+0    7        *      *   *        $R comercial_meta_ads COMERCIAL/main.py meta-ads --dias 1
+15   7        1      *   *        $R comercial_radar COMERCIAL/main.py radar
+0    15       *      *   5        $R comercial_auditoria_atendimento COMERCIAL/main.py auditoria-atendimento --dias 7
+0    10       *      *   1-5      $R financeiro_cobranca FINANCEIRO/main.py cobranca --enviar
+0    8        *      *   1        $R financeiro_inadimplencia FINANCEIRO/main.py inadimplencia
+0    18       *      *   1-5      $R financeiro_honorarios_novos FINANCEIRO/main.py honorarios-novos
+0    8        5      *   *        $R financeiro_fechamento FINANCEIRO/main.py fechamento
+5    *        *      *   *        $R healthcheck deploy/vps/healthcheck.py
