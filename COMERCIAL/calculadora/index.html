@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadora de Juros do Crédito Rural</title>
-<meta name="description" content="Simule parcelas, total de juros e custo efetivo do seu financiamento rural. Ferramenta informativa e gratuita.">
+<meta name="description" content="Simule parcelas, total de juros e custo efetivo do seu financiamento rural. Ferramenta informativa.">
 <!-- ================================================================
      CONFIGURACAO (editar so aqui). O comando
      python COMERCIAL/main.py calculadora --whatsapp 5569XXXXXXXXX
@@ -103,7 +103,7 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
     <div class="marca" id="marca">Caldeira Advogados Associados</div>
     <h1>Calculadora de juros do crédito rural</h1>
     <p>Descubra quanto o seu financiamento custa em juros: parcela, total pago e custo efetivo por ano.
-       Ferramenta informativa e gratuita; os números ficam só no seu aparelho.</p>
+       Ferramenta informativa; os números ficam só no seu aparelho.</p>
   </div>
 </header>
 
@@ -206,7 +206,7 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
          entender a sua, ajuda ter em mãos: cópia das cédulas e aditivos, extratos, comprovantes de pagamento
          e o registro da perda (laudo, fotos, notas fiscais de venda).</p>
       <div class="aviso">
-        <b>Aviso:</b> esta calculadora é informativa e gratuita. Os valores são aproximados e não substituem a leitura
+        <b>Aviso:</b> esta calculadora é apenas informativa. Os valores são aproximados e não substituem a leitura
         do contrato: capitalização, IOF, seguros, tarifas, correção e encargos de atraso podem alterar o resultado.
         A taxa anual é tratada como taxa efetiva (juros compostos). Não é consultoria jurídica nem financeira e não
         representa promessa de resultado. Nada do que você digita é enviado a ninguém; o botão do WhatsApp só abre
@@ -233,7 +233,7 @@ footer b{color:#fff;font-family:var(--serif);font-weight:700}
 
   $('marca').textContent = C.escritorio || 'Caldeira Advogados Associados';
   $('rodNome').textContent = C.escritorio || '';
-  $('rodResp').textContent = 'Responsável técnico: ' + (C.responsavel || '');
+  $('rodResp').textContent = 'Advogado responsável: ' + (C.responsavel || '');
   $('rodEnd').textContent = [C.endereco, C.site, C.instagram].filter(Boolean).join('  |  ');
 
   function num(txt){
