@@ -1,0 +1,31 @@
+{
+ "_aviso": "DADOS FICTICIOS para demonstrar o funil (formato do Meta Ads e do caso.json da CONTRATACAO). Nada aqui e real.",
+ "mes": "09/2026",
+ "meta_conta": [
+  {"spend": "2150.00", "impressions": "185000", "reach": "61000", "inline_link_clicks": "2100", "frequency": "3.03",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "118"}]}
+ ],
+ "meta_campanhas": [
+  {"campaign_id": "2001", "campaign_name": "[RO+MT] Conversas WhatsApp - Dívida rural", "spend": "1890.00",
+   "impressions": "160000", "reach": "52000", "inline_link_clicks": "1850", "frequency": "3.08",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "104"}]},
+  {"campaign_id": "2002", "campaign_name": "[RO] Calculadora de juros", "spend": "260.00",
+   "impressions": "25000", "reach": "9000", "inline_link_clicks": "250", "frequency": "2.78",
+   "actions": [{"action_type": "onsite_conversion.messaging_conversation_started_7d", "value": "14"}]}
+ ],
+ "casos": [
+  {"data_contrato": "2026-09-03", "qualificacao": {"nome": "Produtor Ficticio Um", "origem": "Meta - ref. MKT-AAAAA"}, "cadastro": {"valor": "R$ 12.000,00"}},
+  {"data_contrato": "2026-09-05", "qualificacao": {"nome": "Produtora Ficticia Dois", "origem": "Meta - ref. MKT-BBBBB"}, "cadastro": {"valor": "R$ 9.500,00"}},
+  {"data_contrato": "2026-09-09", "qualificacao": {"nome": "Produtor Ficticio Tres", "origem": "Indicação"}, "cadastro": {"valor": "R$ 15.000,00"}},
+  {"data_contrato": "2026-09-11", "qualificacao": {"nome": "Produtor Ficticio Quatro", "origem": "Anúncio Instagram"}, "cadastro": {}},
+  {"data_contrato": "2026-09-16", "qualificacao": {"nome": "Produtor Ficticio Cinco", "origem": "Meta - ref. MKT-BBBBB"}, "cadastro": {"valor": "10000"}},
+  {"data_contrato": "2026-09-22", "qualificacao": {"nome": "Produtora Ficticia Seis", "origem": "Indicação"}, "cadastro": {}},
+  {"data_contrato": "2026-09-26", "qualificacao": {"nome": "Produtor Ficticio Sete", "origem": "Meta"}, "cadastro": {"valor": "R$ 8.000,00"}},
+  {"data_contrato": "2026-08-28", "qualificacao": {"nome": "Produtor Ficticio Oito", "origem": "Meta"}, "cadastro": {"valor": "R$ 7.000,00"}}
+ ],
+ "codigos": {
+  "MKT-AAAAA": {"campanha": "[RO+MT] Conversas WhatsApp - Dívida rural", "conjunto": "RO Leste - núcleo", "anuncio": "A1 - O que diz a regra (prorrogação)"},
+  "MKT-BBBBB": {"campanha": "[RO+MT] Conversas WhatsApp - Dívida rural", "conjunto": "MT Norte (soja)", "anuncio": "A3 - Produtor de soja"},
+  "MKT-CCCCC": {"campanha": "[RO+MT] Conversas WhatsApp - Dívida rural", "conjunto": "RO Leste - núcleo", "anuncio": "A2 - Documentos que ajudam"}
+ }
+}

@@ -14,7 +14,9 @@
 - Nunca inventar dado de cliente, banco, valor, data, e-mail de banco ou jurisprudencia. Sem dado: `[CONFERIR]` / `[PREENCHER]`.
 - Documento com `[CONFERIR]` ou `[PREENCHER]` **nunca** vai para assinatura nem vira rascunho de e-mail (trava no codigo).
 - Nada sai do escritorio sem flag explicita (`--enviar`, `--rascunho-gmail`, `--criar-tarefas`) E a credencial no `.env`.
-- Senha GOV.BR do cliente nunca por mensagem escrita. Publicidade dentro do Provimento 205/2021 da OAB.
+- Senha GOV.BR do cliente nunca por mensagem escrita. Publicidade dentro do Provimento 205/2021 da OAB: todo conteudo passa
+  por `MARKETING/main.py conferir`; nada e publicado automaticamente; mudanca na conta de anuncios so com `acoes --aplicar`
+  e confirmacao item a item (orcamento no maximo +-20%, anuncio novo nasce pausado).
 
 ## Mapa: fluxo do escritorio -> modulo
 | Fase do manual | Modulo | Comandos principais | POP |
@@ -24,6 +26,7 @@
 | 3 Extrajudicial | `EXTRAJUDICIAL/` | `notificar`, `rascunho`, `registrar-envio`, `registrar-resposta`, `acompanhar`, `consumidor-gov`, `proposta`, `decisao`, `relatorio-gestor`, `painel` | `docs/POP_FASE_EXTRAJUDICIAL.md` |
 | 4 Judicial | `JUDICIAL/` | `checklist`, `inicial`, `agravo`, `replica`, `embargos`, `contrarrazoes`, `manifestacao`, `pecas` | `docs/POP_FASE_JUDICIAL.md` |
 | 5 Acompanhamento + 6 Finalizacao | `CONTROLADORIA/` | `varredura`, `avisos-cliente`, `relatorio-clientes`, `planilha`, `parados`, `finalizar` | `docs/POP_FASE_ACOMPANHAMENTO.md` |
+| Marketing (conteudo sem agencia, trafego pago, funil) | `MARKETING/` | `calendario`, `post --arte`, `conferir`, `concorrentes`, `ideias`, `plano`, `criativos`, `acoes`, `funil`, `landing`, `utm` | `docs/POP_MARKETING_CONTEUDO.md`, `docs/POP_MARKETING_TRAFEGO.md`, `docs/GUIA_MONITOR_CAMPANHAS.md` |
 | Gestao (pauta de segunda, auditoria de sexta) | `GESTAO/` | `pauta`, `auditoria`, `gargalos` | `docs/POP_GESTAO.md` |
 | Financeiro | `FINANCEIRO/` | `cobranca`, `inadimplencia`, `fechamento`, `honorarios-novos` | `docs/MAPA_DO_SISTEMA.md` |
 
@@ -35,7 +38,7 @@ Guia da equipe: `docs/COMECE_AQUI.md`. O que falta configurar: `docs/ONBOARDING.
 ```
 NUCLEO/          ambiente (.env, caminhos), ia (Claude: JSON por schema e texto longo), docx_caldeira (timbrado)
 INTEGRACOES/     advbox, asaas, zapsign, atendedireito, gmail (so rascunho), comunica_djen, meta_ads (so leitura)
-CONTRATACAO/ EXTRAJUDICIAL/ JUDICIAL/ CONTROLADORIA/ GESTAO/ COMERCIAL/ FINANCEIRO/
+CONTRATACAO/ EXTRAJUDICIAL/ JUDICIAL/ CONTROLADORIA/ GESTAO/ COMERCIAL/ MARKETING/ FINANCEIRO/
 BASE_CONHECIMENTO/  DNA_PECAS.md (teses, foro, estilo, o que os bancos alegam) + ESQUELETOS/ por tipo de peca
 DOCS_MODELOS/    contrato, procuracao, declaracao (hoje PROVISORIOS - travam o envio)
 config/          escritorio.py, equipe.py, regras_financeiras.py, bancos_emails.json, timbrado, .env (nao versionar)

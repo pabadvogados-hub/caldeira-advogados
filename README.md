@@ -10,6 +10,7 @@ VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro contato do produtor à 
 | `EXTRAJUDICIAL/` | Notificação a cada banco, rascunho no Gmail, prazo de resposta, consumidor.gov, parecer de proposta |
 | `JUDICIAL/` | Checklist pré-protocolo, inicial mandamental com tutela, agravo, réplica, embargos, contrarrazões |
 | `CONTROLADORIA/` | Intimações do DJEN, prazos com D-3, tarefas no ADVBOX, avisos e relatório ao cliente, planilha, finalização |
+| `MARKETING/` | Calendário editorial, posts e artes do Instagram, checagem do Provimento 205, plano de campanha no Meta por região, análise dos anúncios, funil com custo por contrato, landing page |
 | `GESTAO/` | Pauta de segunda, auditoria de sexta, gargalos da equipe |
 | `FINANCEIRO/` | Régua de cobrança de honorários, inadimplência, fechamento mensal |
 

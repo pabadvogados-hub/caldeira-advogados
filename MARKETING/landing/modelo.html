@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dívida rural e prorrogação - {{ESCRITORIO}}</title>
+<meta name="description" content="Informação para o produtor rural de Rondônia e do norte do Mato Grosso sobre prorrogação de dívida rural, frustração de safra e cobrança de bancos e cooperativas.">
+<meta property="og:title" content="Dívida rural com banco ou cooperativa: entenda a regra da prorrogação">
+<meta property="og:description" content="Conteúdo informativo para o produtor rural. {{ESCRITORIO}}.">
+<meta name="theme-color" content="#20201F">
+<!-- ================================================================
+     MODELO da pagina do produtor rural. NAO publicar este arquivo:
+     o comando  python MARKETING/trafego.py landing [--whatsapp 55...]
+     gera o index.html ao lado, com os dados do escritorio e o logo.
+     ================================================================ -->
+<!-- CONFIG-INICIO -->
+<script>
+window.CONFIG_LANDING = {"whatsapp": "", "mensagem": "", "pixelId": ""};
+</script>
+<!-- CONFIG-FIM -->
+<style>
+:root{
+  --laranja:#C45911; --laranja-botao:#A84C0E; --laranja-hover:#8C3F0B; --laranja-texto:#9E4610;
+  --escuro:#20201F; --escuro-2:#2C2B29; --papel:#FBF8F4; --creme:#F4ECE2; --cartao:#FFFFFF;
+  --linha:#E6DDD2; --suave:#5F5850; --claro:#E8B48F;
+  --serif:Georgia,"Times New Roman",Times,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --raio:12px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--papel);color:var(--escuro);font:17px/1.6 var(--sans);overflow-wrap:break-word}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--laranja-texto)}
+.caixa{max-width:1080px;margin:0 auto;padding:0 16px}
+.pular{position:absolute;left:-999px;top:0;background:#fff;padding:8px 12px;z-index:10}
+.pular:focus{left:8px}
+
+/* topo */
+.topo{background:var(--cartao);border-bottom:1px solid var(--linha)}
+.topo .caixa{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:76px}
+.topo img{height:56px;width:auto}
+.topo .oab{font-size:13px;color:var(--suave);text-align:right;line-height:1.35}
+.topo .oab b{display:block;color:var(--escuro);font-weight:600}
+
+/* abertura */
+.abertura{
+  color:#fff;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 90% at 95% 0%,rgba(196,89,17,.34),transparent 60%),
+    repeating-linear-gradient(112deg,rgba(255,255,255,.035) 0 2px,transparent 2px 26px),
+    var(--escuro);
+  border-bottom:5px solid var(--laranja);
+}
+.abertura .caixa{padding-top:44px;padding-bottom:52px}
+.selo{display:inline-block;font-size:12.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--claro);
+  border:1px solid rgba(232,180,143,.45);border-radius:999px;padding:5px 12px}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(29px,6.2vw,48px);line-height:1.12;margin:18px 0 16px;
+  max-width:20ch;letter-spacing:-.3px}
+h1 em{font-style:normal;color:var(--claro)}
+.lead{font-size:clamp(17px,2.4vw,19.5px);color:#E9E3DB;max-width:60ch;margin:0 0 28px}
+.acoes{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:14px 24px;
+  border-radius:var(--raio);background:var(--laranja-botao);color:#fff;font-weight:700;font-size:17.5px;
+  text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.18);transition:background .15s ease,transform .15s ease}
+.btn:hover{background:var(--laranja-hover)}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible,.link-calc:focus-visible,summary:focus-visible{outline:3px solid var(--claro);outline-offset:3px}
+.btn svg{width:22px;height:22px;flex:none}
+.link-calc{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:rgba(232,180,143,.7);
+  text-underline-offset:4px}
+.nota-abertura{margin:18px 0 0;font-size:14px;color:#C9C1B6}
+
+/* secoes */
+section{padding:56px 0}
+section.alt{background:var(--creme)}
+h2{font-family:var(--serif);font-size:clamp(25px,4.4vw,34px);line-height:1.2;margin:0 0 10px;letter-spacing:-.2px}
+.sub{color:var(--suave);margin:0 0 28px;max-width:62ch}
+.grade{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:var(--raio);padding:20px 20px 18px;
+  border-top:4px solid var(--laranja)}
+.cartao h3{font-size:18px;margin:0 0 6px;line-height:1.3}
+.cartao p{margin:0;color:var(--suave);font-size:16px}
+
+/* a regra */
+.regra{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+blockquote{margin:0;background:var(--cartao);border:1px solid var(--linha);border-left:5px solid var(--laranja);
+  border-radius:0 var(--raio) var(--raio) 0;padding:20px 22px}
+blockquote p{font-family:var(--serif);font-size:18.5px;line-height:1.5;margin:0 0 10px}
+blockquote cite{font-style:normal;font-size:14px;color:var(--suave);font-weight:600}
+.aviso-caso{margin:22px 0 0;padding:14px 16px;background:#fff7ef;border:1px dashed #D9A77F;border-radius:10px;
+  font-size:15.5px;color:#5a3a22}
+
+/* passos */
+.passos{list-style:none;margin:0;padding:0;display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));counter-reset:passo}
+.passos li{counter-increment:passo;background:var(--cartao);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:20px}
+.passos li::before{content:counter(passo);display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:50%;background:var(--escuro);color:#fff;font-family:var(--serif);font-weight:700;font-size:18px;
+  margin-bottom:12px;border:2px solid var(--laranja)}
+.passos b{display:block;font-size:17.5px;margin-bottom:4px}
+.passos span{color:var(--suave);font-size:16px}
+
+/* documentos */
+.docs{list-style:none;margin:0;padding:0;display:grid;gap:10px 22px;
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.docs li{position:relative;padding:12px 14px 12px 46px;background:var(--cartao);border:1px solid var(--linha);
+  border-radius:10px}
+.docs li::before{content:"";position:absolute;left:16px;top:17px;width:9px;height:15px;border:solid var(--laranja);
+  border-width:0 3px 3px 0;transform:rotate(45deg)}
+.docs small{display:block;color:var(--suave);font-size:14.5px}
+.cuidado{margin:20px 0 0;padding:14px 16px;border-radius:10px;background:var(--escuro);color:#F1ECE5;font-size:15.5px}
+.cuidado b{color:var(--claro)}
+
+/* perguntas */
+.faq{max-width:820px}
+details{background:var(--cartao);border:1px solid var(--linha);border-radius:10px;margin:0 0 10px}
+summary{cursor:pointer;list-style:none;padding:16px 50px 16px 18px;font-weight:650;position:relative;line-height:1.4}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:26px;
+  font-weight:400;color:var(--laranja)}
+details[open] summary::after{content:"\2212"}
+details p{margin:0;padding:0 18px 18px;color:var(--suave)}
+
+/* chamada final */
+.final{background:var(--escuro);color:#fff;text-align:center;border-top:5px solid var(--laranja)}
+.final h2{color:#fff}
+.final p{color:#D9D2C8;max-width:56ch;margin:0 auto 26px}
+.final .acoes{justify-content:center}
+
+/* rodape */
+footer{background:#161615;color:#BDB5AA;font-size:14.5px;padding:34px 0 40px}
+footer .grade{gap:22px}
+footer b{color:#fff;display:block;margin-bottom:4px;font-size:15.5px}
+footer a{color:#E8B48F}
+.etica{margin:26px 0 0;padding-top:18px;border-top:1px solid #33322F;font-size:13.5px;color:#9B9388}
+
+/* barra fixa no celular */
+.barra{display:none}
+@media (max-width:760px){
+  .topo .oab{display:none}
+  .topo .caixa{justify-content:center;min-height:72px}
+  .abertura .caixa{padding-top:34px;padding-bottom:40px}
+  .acoes .btn{width:100%}
+  section{padding:44px 0}
+  .selo{letter-spacing:1.2px;font-size:11.5px}
+  .barra{display:block;position:fixed;left:0;right:0;bottom:0;z-index:5;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(251,248,244,.96);border-top:1px solid var(--linha);backdrop-filter:blur(6px);
+    transform:translateY(0);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+  .barra.escondida{transform:translateY(110%)}
+  .barra .btn{width:100%;min-height:50px;box-shadow:none}
+  body{padding-bottom:78px}
+}
+.cookies{position:fixed;left:12px;right:12px;bottom:90px;z-index:6;max-width:520px;margin:0 auto;background:#fff;
+  border:1px solid var(--linha);border-radius:10px;padding:12px 14px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.cookies button{margin-left:8px;border:0;background:var(--escuro);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+@media (min-width:761px){.cookies{bottom:16px}}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="caixa">
+    <img src="{{LOGO}}" alt="{{ESCRITORIO}}" width="86" height="56">
+    <div class="oab"><b>{{RESPONSAVEL}}</b>{{CIDADE_UF}}</div>
+  </div>
+</header>
+
+<main id="conteudo">
+<section class="abertura" aria-labelledby="titulo">
+  <div class="caixa">
+    <span class="selo">Crédito rural · Rondônia e norte do Mato Grosso</span>
+    <h1 id="titulo">Dívida rural com banco ou cooperativa: <em>entenda o que a regra prevê</em> antes de negociar</h1>
+    <p class="lead">Informação para o produtor de soja, milho e pecuária que teve frustração de safra, dificuldade para
+      vender a produção ou está com parcela de custeio ou investimento vencendo.</p>
+    <div class="acoes">
+      <a class="btn" data-whatsapp href="{{WHATSAPP_LINK}}" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+        Conversar pelo WhatsApp
+      </a>
+      <a class="link-calc" data-calculadora href="{{CALCULADORA_URL}}">Simular os juros do meu financiamento</a>
+    </div>
+    <p class="nota-abertura">Você fala com a equipe do escritório. Conteúdo informativo: cada caso depende de análise.</p>
+  </div>
+</section>
+
+<section aria-labelledby="para-quem">
+  <div class="caixa">
+    <h2 id="para-quem">Para quem é esta página</h2>
+    <p class="sub">Para o produtor rural, pessoa física ou empresa da atividade rural, com crédito tomado em banco ou cooperativa.</p>
+    <div class="grade">
+      <div class="cartao"><h3>Safra frustrada</h3><p>Estiagem, excesso de chuva, praga ou doença reduziram a colheita e a receita não fecha a parcela.</p></div>
+      <div class="cartao"><h3>Parcela vencendo ou vencida</h3><p>Custeio, investimento ou CPR com vencimento próximo, já vencido ou renegociado mais de uma vez.</p></div>
+      <div class="cartao"><h3>Dificuldade de vender a produção</h3><p>Preço abaixo do custo ou problema de comercialização que comprometeu o pagamento.</p></div>
+      <div class="cartao"><h3>Cobrança, negativação ou execução</h3><p>O banco negou o pedido, está cobrando, negativou o nome ou já entrou com execução.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="regra">
+  <div class="caixa">
+    <h2 id="regra">O que diz a regra do crédito rural</h2>
+    <p class="sub">Em linguagem simples, duas referências que todo produtor com dívida rural deveria conhecer.</p>
+    <div class="regra">
+      <blockquote>
+        <p>A dívida rural pode ser prorrogada, com os mesmos encargos do contrato, quando o produtor comprova que não
+          consegue pagar por causa de dificuldade de comercialização, frustração de safra por fatores adversos ou outras
+          ocorrências que prejudicaram a atividade.</p>
+        <cite>Manual de Crédito Rural do Banco Central, item 2-6-4 (resumo)</cite>
+      </blockquote>
+      <blockquote>
+        <p>"O alongamento de dívida originada de crédito rural não constitui faculdade da instituição financeira, mas
+          direito do devedor nos termos da lei."</p>
+        <cite>Súmula 298 do Superior Tribunal de Justiça</cite>
+      </blockquote>
+    </div>
+    <p class="aviso-caso">Isso não quer dizer que todo pedido será aceito: a prorrogação depende de comprovar a perda e de
+      analisar cada contrato. Esta página é informativa e não substitui a análise do seu caso.</p>
+  </div>
+</section>
+
+<section aria-labelledby="como">
+  <div class="caixa">
+    <h2 id="como">Como o escritório ajuda</h2>
+    <p class="sub">O caminho mais comum, passo a passo. Cada etapa só avança com a sua autorização.</p>
+    <ol class="passos">
+      <li><b>Conversa inicial</b><span>Pelo WhatsApp, a equipe entende a sua situação: banco, tipo de crédito, vencimentos e o que aconteceu com a safra.</span></li>
+      <li><b>Análise dos documentos</b><span>Cédulas, aditivos, extratos e o registro da perda mostram o que dá para pedir e com qual fundamento.</span></li>
+      <li><b>Pedido ao banco</b><span>Pedido formal de prorrogação ou alongamento, com os documentos que comprovam a perda.</span></li>
+      <li><b>Via judicial, se preciso</b><span>Se o banco não atender, o escritório avalia com você a ação cabível para discutir a prorrogação.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="alt" aria-labelledby="documentos">
+  <div class="caixa">
+    <h2 id="documentos">Documentos que ajudam na análise</h2>
+    <p class="sub">Não precisa ter tudo para começar a conversa. Separe o que tiver.</p>
+    <ul class="docs">
+      <li>Cédulas, contratos e aditivos<small>CCR, CPR, CCB rural, nota de crédito rural</small></li>
+      <li>Extratos bancários<small>das contas ligadas ao financiamento</small></li>
+      <li>Comprovantes de pagamento<small>das parcelas já pagas</small></li>
+      <li>Registro da perda de safra<small>laudo agronômico, decreto de emergência, comunicação ao seguro ou Proagro</small></li>
+      <li>Notas fiscais da produção<small>vendas e bloco do produtor</small></li>
+      <li>Documentos do imóvel rural<small>matrícula, CAR, CCIR ou ITR</small></li>
+      <li>Para pecuarista<small>GTA e extrato do rebanho no órgão de defesa agropecuária</small></li>
+      <li>Documentos pessoais<small>RG, CPF e comprovante de endereço</small></li>
+    </ul>
+    <p class="cuidado"><b>Cuidado:</b> nunca envie senhas (como a do GOV.BR ou do banco) por mensagem escrita, para ninguém.</p>
+  </div>
+</section>
+
+<section aria-labelledby="perguntas">
+  <div class="caixa faq">
+    <h2 id="perguntas">Perguntas frequentes</h2>
+    <details>
+      <summary>Como funciona o pedido de prorrogação ao banco?</summary>
+      <p>O Manual de Crédito Rural e a Súmula 298 do STJ tratam a prorrogação como direito do produtor quando as condições
+        são comprovadas. Na prática, tudo depende dos documentos e de cada contrato; por isso a análise vem antes de qualquer pedido.</p>
+    </details>
+    <details>
+      <summary>Já recebi uma execução ou citação. Ainda dá para fazer alguma coisa?</summary>
+      <p>Na execução, o prazo para a defesa é curto. Se você recebeu um documento do banco ou da Justiça, procure
+        orientação o quanto antes e tenha o documento em mãos.</p>
+    </details>
+    <details>
+      <summary>Como começa o atendimento?</summary>
+      <p>Pela conversa no WhatsApp. Se houver contratação, as condições são combinadas antes e ficam por escrito no
+        contrato de prestação de serviços.</p>
+    </details>
+    <details>
+      <summary>Preciso ir até o escritório?</summary>
+      <p>O primeiro contato é pelo WhatsApp. A equipe explica como funciona o atendimento para a sua cidade.</p>
+    </details>
+    <details>
+      <summary>A calculadora de juros substitui a análise?</summary>
+      <p>Não. Ela faz uma simulação para você entender parcela, juros e custo do financiamento. A análise depende dos seus contratos.</p>
+    </details>
+    <details>
+      <summary>O que acontece com as informações que eu enviar?</summary>
+      <p>Elas são usadas só para analisar o seu caso e ficam protegidas pelo sigilo profissional do advogado e pela Lei
+        Geral de Proteção de Dados.</p>
+    </details>
+  </div>
+</section>
+
+<section class="final" aria-labelledby="final">
+  <div class="caixa">
+    <h2 id="final">Quer entender a sua situação?</h2>
+    <p>Conte para a equipe o que aconteceu com a safra e com o contrato. A conversa é pelo WhatsApp.</p>
+    <div class="acoes">
+      <a class="btn" data-whatsapp href="{{WHATSAPP_LINK}}" rel="noopener">Conversar pelo WhatsApp</a>
+      <a class="link-calc" data-calculadora href="{{CALCULADORA_URL}}">Usar a calculadora de juros</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="caixa">
+    <div class="grade">
+      <div><b>{{ESCRITORIO}}</b>CNPJ {{CNPJ}}<br>{{ENDERECO}}</div>
+      <div><b>Contato</b>{{TELEFONE}}<br><a href="mailto:{{EMAIL}}">{{EMAIL}}</a><br>Instagram {{INSTAGRAM}}</div>
+      <div><b>Responsável técnico</b>{{RESPONSAVEL}}</div>
+    </div>
+    <p class="etica">Conteúdo informativo, sem promessa de resultado, publicado conforme o Provimento 205/2021 do Conselho
+      Federal da OAB e o Código de Ética e Disciplina. Cada caso depende de análise individual dos documentos.
+      © {{ANO}} {{ESCRITORIO}}.</p>
+  </div>
+</footer>
+
+<div class="barra"><a class="btn" data-whatsapp href="{{WHATSAPP_LINK}}" rel="noopener">Conversar pelo WhatsApp</a></div>
+<div class="cookies" id="aviso-cookies" hidden>Esta página usa cookies de medição do Meta para saber quais anúncios
+  trazem visitas.<button type="button" id="ok-cookies">Entendi</button></div>
+
+<script>
+(function () {
+  var C = window.CONFIG_LANDING || {};
+  var q = new URLSearchParams(location.search);
+  function limpa(v) { return String(v || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40); }
+  var ref = String(q.get('ref') || '').toUpperCase();
+  if (!/^MKT-[A-Z2-7]{5}$/.test(ref)) ref = '';
+  var origem = ref ? 'ref. ' + ref : (q.get('utm_source') ? 'origem: ' +
+    [limpa(q.get('utm_source')), limpa(q.get('utm_campaign')), limpa(q.get('utm_content'))].filter(Boolean).join('/') : '');
+  if (C.whatsapp) {
+    var link = 'https://wa.me/' + C.whatsapp + '?text=' + encodeURIComponent(C.mensagem + (origem ? ' (' + origem + ')' : ''));
+    document.querySelectorAll('[data-whatsapp]').forEach(function (a) {
+      a.href = link;
+      a.addEventListener('click', function () { if (window.fbq) window.fbq('track', 'Contact'); });
+    });
+  }
+  // barra fixa do celular: so aparece depois que o botao do topo sai da tela
+  var barra = document.querySelector('.barra'), botaoTopo = document.querySelector('.abertura .btn');
+  if (barra && botaoTopo && 'IntersectionObserver' in window) {
+    barra.classList.add('escondida');
+    new IntersectionObserver(function (e) { barra.classList.toggle('escondida', e[0].isIntersecting); })
+      .observe(botaoTopo);
+  }
+  var utm = [];
+  q.forEach(function (v, k) { if (/^(utm_[a-z]+|ref)$/.test(k)) utm.push(encodeURIComponent(k) + '=' + encodeURIComponent(v)); });
+  if (utm.length) document.querySelectorAll('[data-calculadora]').forEach(function (a) {
+    var h = a.getAttribute('href'); a.setAttribute('href', h + (h.indexOf('?') < 0 ? '?' : '&') + utm.join('&'));
+  });
+  // Pixel do Meta: so liga com pixelId preenchido (python MARKETING/trafego.py landing --pixel ID)
+  if (C.pixelId && /^\d{6,20}$/.test(C.pixelId)) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', C.pixelId);
+    window.fbq('track', 'PageView');
+    var aviso = document.getElementById('aviso-cookies');
+    var visto = false;
+    try { visto = localStorage.getItem('aviso-cookies') === '1'; } catch (e) {}
+    if (!visto) aviso.hidden = false;
+    document.getElementById('ok-cookies').addEventListener('click', function () {
+      aviso.hidden = true;
+      try { localStorage.setItem('aviso-cookies', '1'); } catch (e) {}
+    });
+  }
+})();
+</script>
+</body>
+</html>

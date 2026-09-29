@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Marketing: analise de criativos do Meta Ads (diario 7h15)
+
+[Timer]
+OnCalendar=*-*-* 07:15:00 America/Porto_Velho
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

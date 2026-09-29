@@ -28,6 +28,11 @@ Comandos rodados na pasta do sistema (`python MODULO/main.py ...`). "Sob demanda
 | Fluxo inicial | Qualificação e resposta ao lead | `COMERCIAL/main.py sdr conversa.txt` | SDR | sob demanda | `ANTHROPIC_API_KEY` |
 | Fluxo inicial | Auditoria do atendimento (SDR/Closer) | `COMERCIAL/main.py auditoria-atendimento --dias 7` | Gestor | sexta 15h | `ANTHROPIC_API_KEY` |
 | Fluxo inicial | Calculadora para a proposta | `COMERCIAL/main.py calculadora` | Closer | sob demanda | - |
+| Fluxo inicial | Plano de campanha do Meta (regiões do radar, orçamento, ângulos, teste A/B de 14 dias) | `MARKETING/trafego.py plano --orcamento-mensal 3000` | Gestor / quem monitora | sob demanda | radar gerado (`COMERCIAL/main.py radar`); `META_ACCESS_TOKEN` opcional (confere interesses) |
+| Fluxo inicial | Análise por anúncio: escalar, manter, pausar, trocar criativo | `MARKETING/trafego.py criativos --dias 7` | quem monitora as campanhas | diário 7h15 | `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID` (+ `ANTHROPIC_API_KEY` para a leitura da IA) |
+| Fluxo inicial | Ações na conta com trava (pausar, orçamento ±20%, duplicar PAUSADO) | `MARKETING/trafego.py acoes --dias 7 --aplicar` | Gestor (confirma item a item) | nunca automático | `META_ACCESS_TOKEN_ACOES` (ads_management) |
+| Fluxo inicial | Funil do mês: gasto -> conversas -> reuniões -> contratos (CAC, ROI) | `MARKETING/trafego.py funil --mes MM/AAAA` | Gestor / titular | mensal, dia 2, 8h (mês anterior) | Meta (ou `--gasto`), `--csv` do atendimento ou `ATENDE_DIREITO_FLOW_TOKEN`, `PASTA_CLIENTES_RAIZ` |
+| Fluxo inicial | Página do produtor rural (landing) e links com UTM | `MARKETING/trafego.py landing` e `utm --campanha ... --conjunto ... --anuncio ...` | Marketing | sob demanda | - |
 | Fluxo inicial | Closer fechou: pasta, triagem, contrato, procuração, declaração | `CONTRATACAO/main.py novo "TRANSCRICAO" "CNH" ... --cadastro CADASTRO.txt` | Closer | sob demanda | `ANTHROPIC_API_KEY`, `PASTA_CLIENTES_RAIZ` |
 | 1 Onboarding | Relatório de Triagem (gatilhos, bancos, linha do tempo) e situação dos casos | `CONTRATACAO/main.py painel` | Gestor Jurídico, Estagiário | sob demanda | `PASTA_CLIENTES_RAIZ` |
 | 2 Formalização | Envio para assinatura + ADVBOX + Asaas + WhatsApp | `CONTRATACAO/main.py enviar "PASTA"` | Estagiário | sob demanda | `ZAPSIGN_API_TOKEN`, `ATENDE_DIREITO_TOKEN`, `ADVBOX_API_TOKEN`, `ASAAS_API_TOKEN` |
@@ -72,6 +77,8 @@ Agendadas em UM lugar só: **ou** na máquina do escritório (`deploy\agendar_ta
 | Comercial: Meta Ads | todo dia 7h | não | `logs/comercial_meta_ads.log` |
 | Comercial: radar | dia 1, 7h15 | não | `logs/comercial_radar.log` |
 | Comercial: auditoria do atendimento | sexta 15h | não | `logs/comercial_auditoria_atendimento.log` |
+| Marketing: criativos do Meta Ads | todo dia 7h15 | não (só lê a conta) | `logs/marketing_criativos.log` |
+| Marketing: funil do mês anterior | dia 2, 8h | não | `logs/marketing_funil.log` |
 | Financeiro: cobrança (régua) | segunda a sexta 10h | sim (régua, máx. 1 por dia) | `logs/financeiro_cobranca.log` |
 | Financeiro: inadimplência | segunda 8h | não | `logs/financeiro_inadimplencia.log` |
 | Financeiro: honorários novos | segunda a sexta 18h | não | `logs/financeiro_honorarios_novos.log` |
@@ -133,6 +140,9 @@ Sem a chave, a etapa correspondente fica em modo seguro.
 | `PRAZO_INTERNO_DIAS_ANTES`, `FERIADOS_EXTRAS`, `RELATORIO_CLIENTE_DIAS` | ajustes de prazos e do relatório | CONTROLADORIA | não |
 | `PRAZO_RESPOSTA_BANCO_DIAS`, `EMAIL_RESPOSTAS_BANCOS` | prazo de resposta e e-mail das respostas dos bancos | EXTRAJUDICIAL | conferir no módulo |
 | `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID`, `META_API_VERSION` | campanhas do Meta Ads | COMERCIAL | para o relatório de campanhas |
+| `META_ACCESS_TOKEN_ACOES` | token SEPARADO com `ads_management`, só para `trafego.py acoes --aplicar` | MARKETING/meta_acoes.py | não (sem ele, nada é alterado na conta) |
+| `MODELO_MARKETING` | modelo da IA da leitura dos criativos e das variações de texto | MARKETING | não (padrão: `MODELO_SDR`) |
+| `MARKETING_LANDING_URL`, `MARKETING_CALCULADORA_URL` | endereços publicados da landing e da calculadora (links com UTM) | MARKETING | não |
 | `ALERTA_WHATSAPP` | número que recebe os avisos do healthcheck (precisa ser contato no Atende Direito) | deploy/vps/healthcheck.py | recomendada |
 | `SOFFICE_PATH` | caminho do LibreOffice, se o Word não estiver instalado | NUCLEO (PDF) | não |
 | `TESSERACT_CMD` | OCR de documento escaneado | CONTRATACAO | não |

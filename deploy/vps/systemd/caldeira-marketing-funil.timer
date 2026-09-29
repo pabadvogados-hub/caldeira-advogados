@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Marketing: funil do trafego do mes anterior (dia 2)
+
+[Timer]
+OnCalendar=*-*-02 08:00:00 America/Porto_Velho
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

@@ -15,6 +15,8 @@ R="bash /app/deploy/vps/rodar_rotina.sh"
 0    7        *      *   *        $R comercial_meta_ads COMERCIAL/main.py meta-ads --dias 1
 15   7        1      *   *        $R comercial_radar COMERCIAL/main.py radar
 0    15       *      *   5        $R comercial_auditoria_atendimento COMERCIAL/main.py auditoria-atendimento --dias 7
+15   7        *      *   *        $R marketing_criativos MARKETING/trafego.py criativos --dias 7
+0    8        2      *   *        $R marketing_funil MARKETING/trafego.py funil
 0    10       *      *   1-5      $R financeiro_cobranca FINANCEIRO/main.py cobranca --enviar
 0    8        *      *   1        $R financeiro_inadimplencia FINANCEIRO/main.py inadimplencia
 0    18       *      *   1-5      $R financeiro_honorarios_novos FINANCEIRO/main.py honorarios-novos

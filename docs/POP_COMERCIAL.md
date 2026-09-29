@@ -116,8 +116,7 @@ Para a auditoria saber quem fechou, as **etiquetas/etapas do CRM** precisam usar
 
 ## Travas de segurança
 
-- **Meta Ads: somente leitura.** A integração não tem função de escrita; pausar, ativar e orçamento são feitos por
-  uma pessoa no Gerenciador de Anúncios.
+- **Meta Ads:** o relatório deste módulo só lê. Pausar anúncio, ajustar orçamento (no máximo 20% por vez) ou duplicar (nasce pausado) só pelo `python MARKETING/main.py acoes --aplicar`, com token próprio `META_ACCESS_TOKEN_ACOES` e confirmação digitada item a item. Ver `docs/POP_MARKETING_TRAFEGO.md`.
 - **Atende Direito: somente leitura** na auditoria; o SDR de IA roda dentro do Atende Direito, com o prompt aprovado.
 - Nada é enviado ao cliente por estes comandos. Sem credencial, o comando para ou usa `--exemplo`.
 - SDR sem IA nunca marca lead como qualificado. Nenhum valor de honorário é inventado.

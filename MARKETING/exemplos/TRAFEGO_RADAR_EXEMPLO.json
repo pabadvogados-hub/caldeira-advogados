@@ -1,0 +1,28 @@
+{
+ "_aviso": "NUMEROS FICTICIOS para demonstrar o plano de trafego (os nomes dos municipios sao reais; contratos e valores NAO). Para o plano de verdade: python COMERCIAL/main.py radar",
+ "ufs": ["RO", "MT"],
+ "ano": 2025,
+ "municipios": [
+  {"uf": "RO", "municipio": "Vilhena", "mesorregiao": "Leste Rondoniense", "qtd_total": 2100, "vl_total": 610000000, "vl_soja": 250000000, "vl_bovinos": 60000000, "area_soja_ha": 90000},
+  {"uf": "RO", "municipio": "Cacoal", "mesorregiao": "Leste Rondoniense", "qtd_total": 2600, "vl_total": 420000000, "vl_soja": 40000000, "vl_bovinos": 120000000, "area_soja_ha": 15000},
+  {"uf": "RO", "municipio": "Ji-Paraná", "mesorregiao": "Leste Rondoniense", "qtd_total": 2300, "vl_total": 390000000, "vl_soja": 20000000, "vl_bovinos": 140000000, "area_soja_ha": 8000},
+  {"uf": "RO", "municipio": "Cerejeiras", "mesorregiao": "Leste Rondoniense", "qtd_total": 900, "vl_total": 330000000, "vl_soja": 170000000, "vl_bovinos": 20000000, "area_soja_ha": 60000},
+  {"uf": "RO", "municipio": "Chupinguaia", "mesorregiao": "Leste Rondoniense", "qtd_total": 700, "vl_total": 300000000, "vl_soja": 160000000, "vl_bovinos": 30000000, "area_soja_ha": 55000},
+  {"uf": "RO", "municipio": "Ariquemes", "mesorregiao": "Leste Rondoniense", "qtd_total": 1900, "vl_total": 280000000, "vl_soja": 30000000, "vl_bovinos": 110000000, "area_soja_ha": 10000},
+  {"uf": "RO", "municipio": "Rolim de Moura", "mesorregiao": "Leste Rondoniense", "qtd_total": 1700, "vl_total": 210000000, "vl_soja": 25000000, "vl_bovinos": 80000000, "area_soja_ha": 9000},
+  {"uf": "RO", "municipio": "Pimenta Bueno", "mesorregiao": "Leste Rondoniense", "qtd_total": 1300, "vl_total": 200000000, "vl_soja": 45000000, "vl_bovinos": 70000000, "area_soja_ha": 16000},
+  {"uf": "RO", "municipio": "Jaru", "mesorregiao": "Leste Rondoniense", "qtd_total": 1500, "vl_total": 160000000, "vl_soja": 5000000, "vl_bovinos": 90000000, "area_soja_ha": 2000},
+  {"uf": "RO", "municipio": "Espigão d'Oeste", "mesorregiao": "Leste Rondoniense", "qtd_total": 1000, "vl_total": 120000000, "vl_soja": 10000000, "vl_bovinos": 50000000, "area_soja_ha": 4000},
+  {"uf": "RO", "municipio": "Porto Velho", "mesorregiao": "Madeira-Guaporé", "qtd_total": 1400, "vl_total": 260000000, "vl_soja": 60000000, "vl_bovinos": 90000000, "area_soja_ha": 20000},
+  {"uf": "RO", "municipio": "Buritis", "mesorregiao": "Madeira-Guaporé", "qtd_total": 1100, "vl_total": 150000000, "vl_soja": 8000000, "vl_bovinos": 85000000, "area_soja_ha": 3000},
+  {"uf": "MT", "municipio": "Sorriso", "mesorregiao": "Norte Mato-grossense", "qtd_total": 2400, "vl_total": 1900000000, "vl_soja": 900000000, "vl_bovinos": 30000000, "area_soja_ha": 600000},
+  {"uf": "MT", "municipio": "Nova Mutum", "mesorregiao": "Norte Mato-grossense", "qtd_total": 1500, "vl_total": 1200000000, "vl_soja": 520000000, "vl_bovinos": 40000000, "area_soja_ha": 400000},
+  {"uf": "MT", "municipio": "Lucas do Rio Verde", "mesorregiao": "Norte Mato-grossense", "qtd_total": 1300, "vl_total": 1100000000, "vl_soja": 480000000, "vl_bovinos": 25000000, "area_soja_ha": 250000},
+  {"uf": "MT", "municipio": "Sapezal", "mesorregiao": "Norte Mato-grossense", "qtd_total": 600, "vl_total": 1000000000, "vl_soja": 450000000, "vl_bovinos": 10000000, "area_soja_ha": 380000},
+  {"uf": "MT", "municipio": "Campos de Júlio", "mesorregiao": "Norte Mato-grossense", "qtd_total": 350, "vl_total": 600000000, "vl_soja": 280000000, "vl_bovinos": 8000000, "area_soja_ha": 200000},
+  {"uf": "MT", "municipio": "Sinop", "mesorregiao": "Norte Mato-grossense", "qtd_total": 1200, "vl_total": 700000000, "vl_soja": 250000000, "vl_bovinos": 60000000, "area_soja_ha": 150000},
+  {"uf": "MT", "municipio": "Juína", "mesorregiao": "Norte Mato-grossense", "qtd_total": 900, "vl_total": 250000000, "vl_soja": 20000000, "vl_bovinos": 120000000, "area_soja_ha": 8000},
+  {"uf": "MT", "municipio": "Rondonópolis", "mesorregiao": "Sudeste Mato-grossense", "qtd_total": 1600, "vl_total": 1300000000, "vl_soja": 500000000, "vl_bovinos": 90000000, "area_soja_ha": 300000},
+  {"uf": "MT", "municipio": "Primavera do Leste", "mesorregiao": "Sudeste Mato-grossense", "qtd_total": 1100, "vl_total": 1400000000, "vl_soja": 600000000, "vl_bovinos": 20000000, "area_soja_ha": 350000}
+ ]
+}

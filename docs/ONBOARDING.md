@@ -27,6 +27,10 @@ Variáveis completas: `config/.env.example`. Tabela de qual comando usa qual cha
 - [ ] Prazos: manter 15/60 dias ou reduzir para 5/15 (`PRAZOS` em `config/escritorio.py`)
 - [ ] Notificação: fixar prazo de resposta no texto? padrão de 3 anos de carência + 15 parcelas sem laudo?
 - [ ] Cor das peças: laranja só na inicial e notificação (como hoje) ou em todas
+- [ ] Marketing: logo em vetor/PNG grande, fontes da marca (se houver, em `config/fontes/`), fotos reais da equipe e do
+      escritório, aprovação do tom de voz e da linha de identificação das legendas; publicar a landing e a calculadora
+      no site e informar os endereços (`MARKETING_LANDING_URL`, `MARKETING_CALCULADORA_URL`)
+- [ ] Token separado do Meta com `ads_management` (`META_ACCESS_TOKEN_ACOES`), só se o escritório quiser executar ações pela IA
 - [ ] Checklist do previdenciário (salário-maternidade, BPC), se entrar na contratação
 
 ## 3. Conferir no primeiro uso real

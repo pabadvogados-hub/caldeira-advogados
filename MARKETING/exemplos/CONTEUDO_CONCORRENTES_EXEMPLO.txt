@@ -1,0 +1,20 @@
+# EXEMPLO FICTICIO de textos de anuncios de concorrentes (nao sao anuncios reais).
+# Como usar: copie os textos da Biblioteca de Anuncios do Meta e cole aqui, um anuncio por bloco,
+# separando cada anuncio com uma linha contendo apenas ---
+# Linhas que comecam com # sao ignoradas.
+---
+DÍVIDA RURAL? RESOLVA JÁ!!
+Garantimos a prorrogação da sua dívida com o banco em até 30 dias.
+Somos o escritório número 1 do agro em Rondônia, mais de 500 produtores atendidos.
+Consulta gratuita e sem compromisso. Clique no link e fale agora com um especialista!
+---
+Produtor, o banco vai tomar a sua fazenda se você não agir antes que seja tarde.
+Nosso cliente conseguiu reduzir a dívida pela metade. Você também pode!
+Honorários só no final, parcelamos em até 12x. Chame no WhatsApp.
+---
+Você sabia que o Manual de Crédito Rural prevê a prorrogação da dívida quando há frustração de safra?
+Neste carrossel explicamos quais documentos guardar e como fazer o pedido por escrito ao banco.
+Arraste para o lado e salve para consultar depois.
+---
+Vídeo: 3 erros que o produtor comete ao renegociar com a cooperativa.
+Assista até o final. Ficou com dúvida? Converse com um advogado de sua confiança.
